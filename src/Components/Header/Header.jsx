@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 import AfterReg from '../AfterReg/AfterReg'
 import BeforeReg from '../BeforeReg/BeforeReg'
 import classes from "./header.module.scss"
+import { localTokenKey } from './../Constants/index';
 
 const Header = () => {
 
-  let num = !false // keyin o'chirib tashlanadi
+  let token = localStorage.getItem(localTokenKey)
 
 
   return (
@@ -16,8 +17,8 @@ const Header = () => {
 
           <Link to="/" className={classes["header__nav-logo"]}>Jobify</Link>
 
-          {num ? <BeforeReg /> : <AfterReg />}
-          
+          {token ? <AfterReg /> : <BeforeReg />}
+
         </nav>
       </div>
 

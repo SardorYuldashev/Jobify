@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   info: null,
-  token: null
+  token: null,
+  isCompleted: false
 }
 
 const userSlice = createSlice({
@@ -11,12 +12,17 @@ const userSlice = createSlice({
   reducers: {    
     loadUserToken(state, { payload }) {
       state.token = payload
-      console.log(state.token);
+    },
+    loadUserInfo(state, { payload }) {
+      state.info = payload
+    },
+    loadUserCompleted(state, { payload }) {
+      state.isCompleted = payload
     }
   }
 })
 
-export const { loadUserToken } = userSlice.actions
+export const { loadUserToken, loadUserInfo, loadUserCompleted } = userSlice.actions
 
 const userReducer = userSlice.reducer
 
