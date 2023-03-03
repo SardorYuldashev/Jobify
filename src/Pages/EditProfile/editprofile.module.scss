@@ -1,0 +1,87 @@
+.editprofile {
+  margin-top: 20px;
+  min-height: calc(100vh - 100px);
+  
+  &__content {
+    padding-bottom: 30px;
+
+    &-buttonsX {
+      margin: 30px 0 20px;
+      display: flex;
+      align-items: center;
+      width: 300px;
+    }
+
+    &-btnX {
+      padding: 8px 16px;
+      border-radius: 5px;
+      color: rgb(255, 255, 255);
+      background: rgb(228, 81, 81);
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      transition: .3s;
+
+      &:hover {
+        background: rgb(111, 111, 235);
+      }
+    }
+
+    &-info {
+      color: red;
+    }
+
+    &-formTop {
+      display: flex;
+      align-items: center;
+      gap: 20px;      
+    }
+
+    &-formBottom {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+    }
+
+    &-block {
+      width: 100%;
+
+      div {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    &-label {
+      margin: 25px 0 10px;
+    }
+
+    &-input {
+      border: 1px solid rgb(221, 220, 220);
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    &-text {
+      margin-top: 10px;
+    }
+
+    &-btn {
+      width: 100%;
+      padding: 8px 60px;
+      border: none;
+      transition: .3s;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #9c4c4c;
+      font-size: 18px;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background: rgb(122, 199, 243);
+      }
+    }
+  }
+}

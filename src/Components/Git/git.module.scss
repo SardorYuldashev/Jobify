@@ -1,0 +1,65 @@
+.git {
+  &__list {
+    margin-top: 20px;
+
+    &-li {
+      border: 1px solid rgb(230, 227, 227);
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    &-info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      color: black;
+    }
+
+    &-title {
+      font-size: 20px;
+      color: red;
+      font-weight: 600;
+    }
+
+    &-text {
+      margin-top: 8px;
+    }
+
+    &-tags {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    &-tag {
+      text-align: center;
+      min-width: 150px;
+      border-radius: 10px;
+      color: white;
+      padding: 3px;
+
+      &:nth-child(1) {
+        background: rgb(211, 46, 46);
+      }
+
+      &:nth-child(2) {
+        background: rgb(176, 238, 60);
+      }
+
+      &:nth-child(3) {
+        background: rgb(43, 53, 25);
+      }
+
+      &:nth-child(4) {
+        background: rgb(147, 160, 235);
+      }
+
+      &:nth-child(5) {
+        background: rgb(22, 32, 88);
+      }
+    }
+  }
+}

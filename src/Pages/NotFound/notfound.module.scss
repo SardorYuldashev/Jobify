@@ -1,0 +1,29 @@
+.notfound {
+  &__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-top: 20px;
+    min-height: calc(100vh - 100px );
+
+    &-title {
+      font-size: 40px;
+    }
+
+    &-btn {
+      font-size: 18px;
+      padding: 8px 16px;
+      cursor: pointer;
+      background: rgb(221, 61, 61);
+      transition: .3s;
+      border-radius: 5px;
+      color: white;
+
+      &:hover {
+        background: rgb(67, 67, 226);
+      }
+    }
+  }
+}
