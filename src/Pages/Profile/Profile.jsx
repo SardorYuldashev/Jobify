@@ -4,9 +4,11 @@ import avatar from '../../assets/avatar.png'
 import Experinces from './../../Components/Experinces';
 import Educations from '../../Components/Educations';
 import Git from './../../Components/Git';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Profile = () => {
+  const { id } = useParams()
+  console.log(id);
 
   const navigate = useNavigate()
   const goBack = () => navigate(-1)
