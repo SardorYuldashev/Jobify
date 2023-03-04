@@ -1,8 +1,23 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 import classes from './myjobs.module.scss'
 
 const MyJobs = () => {
+  let navigate = useNavigate()
+  let { isCompleted } = useSelector(({user}) => user)
+  useEffect(() => {
+    if (isCompleted === false) navigate("/dashboard")
+  }, [isCompleted])
+
+
+
+
+
+
+
+
+
   return (
     <div className={classes["myjobs"]}>
       <div className="container">

@@ -7,7 +7,6 @@ import classes from './dashboard.module.scss'
 import Login from './../Login/index';
 
 const Dashboard = () => {
-
   
 
 
@@ -27,14 +26,13 @@ const Dashboard = () => {
 
 
   let { token } = useSelector(({user}) => user)
-  let { isCompleted } = useSelector(({user}) => user) 
-
+  let { isCompleted } = useSelector(({user}) => user)
 
   return (
     <div className={classes["dashboard"]}>
       <div className="container">
 
-        {token ?? isCompleted ? <AfterProfile /> : <BeforeProfile />}
+        {token && isCompleted ? <AfterProfile /> : <BeforeProfile />}
 
       </div>
     </div>

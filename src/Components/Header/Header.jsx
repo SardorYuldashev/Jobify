@@ -4,10 +4,14 @@ import AfterReg from '../AfterReg/AfterReg'
 import BeforeReg from '../BeforeReg/BeforeReg'
 import classes from "./header.module.scss"
 import { localTokenKey } from './../Constants/index';
+import { useSelector } from 'react-redux'
 
 const Header = () => {
 
-  let token = localStorage.getItem(localTokenKey)
+  // let token = localStorage.getItem(localTokenKey)
+
+  let { token } = useSelector(({user}) => user)
+  let { isCompleted } = useSelector(({user}) => user) 
 
 
   return (
@@ -17,7 +21,7 @@ const Header = () => {
 
           <Link to="/" className={classes["header__nav-logo"]}>Jobify</Link>
 
-          {token ? <AfterReg /> : <BeforeReg />}
+          {token || isCompleted ? <AfterReg /> :   <BeforeReg />}
 
         </nav>
       </div>

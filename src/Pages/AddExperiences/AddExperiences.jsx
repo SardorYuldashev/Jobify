@@ -1,8 +1,25 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import classes from './addexperiences.module.scss'
 
 const AddExperiences = () => {
+  const [values, setValues] = useState([
+
+  ])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className={classes["addexperiences"]}>
       <div className="container">
@@ -28,25 +45,42 @@ const AddExperiences = () => {
               <div className={classes["addexperiences__content-left"]}>
 
                 <div className={classes["addexperiences__content-item"]}>
-                  <label className={classes["addexperiences__content-label"]} htmlFor="title">
+                  <label className={classes["addexperiences__content-label"]}
+                    htmlFor="title">
                     Titile
                   </label>
-                  <input className={classes["addexperiences__content-input"]} type="text" name='title' id='title' placeholder='Senior Developer' />
+                  <input className={classes["addexperiences__content-input"]}
+                    type="text"
+                    name='title'
+                    id='title'
+                    placeholder='Senior Developer' />
                 </div>
 
                 <div className={classes["addexperiences__content-item"]}>
-                  <label className={classes["addexperiences__content-label"]} htmlFor="date1">
+                  <label className={classes["addexperiences__content-label"]}
+                    htmlFor="date1">
                     Date
                   </label>
 
                   <div className={classes["addexperiences__content-inputs"]}>
 
-                    <input className={classes["addexperiences__content-inputDate"]} type="date" name='date1' id='date1' />
+                    <input className={classes["addexperiences__content-inputDate"]}
+                      type="date"
+                      name='date1'
+                      id='date1' />
                     <span>To</span>
-                    <input className={classes["addexperiences__content-inputDate"]} type="date" name='date2' id='date2' />
+                    <input className={classes["addexperiences__content-inputDate"]}
+                      type="date"
+                      name='date2' id='date2' />
                     <div>
-                      <input type="checkbox" name='checkbox' id='checkbox' />
-                      <label htmlFor="checkbox">Current</label>
+                      <input
+                        type="checkbox"
+                        name='checkbox'
+                        id='checkbox' />
+                      <label
+                        htmlFor="checkbox">
+                        Current
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -57,17 +91,27 @@ const AddExperiences = () => {
               <div className={classes["addexperiences__content-right"]}>
 
                 <div className={classes["addexperiences__content-item"]}>
-                  <label className={classes["addexperiences__content-label"]} htmlFor="company">
+                  <label className={classes["addexperiences__content-label"]}
+                    htmlFor="company">
                     Company
                   </label>
-                  <input className={classes["addexperiences__content-input"]} type="text" name='company' id='company' placeholder='Apple' />
+                  <input className={classes["addexperiences__content-input"]}
+                    type="text"
+                    name='company'
+                    id='company'
+                    placeholder='Apple' />
                 </div>
 
                 <div className={classes["addexperiences__content-item"]}>
-                  <label className={classes["addexperiences__content-label"]} htmlFor="location">
+                  <label className={classes["addexperiences__content-label"]}
+                    htmlFor="location">
                     Location
                   </label>
-                  <input className={classes["addexperiences__content-input"]} type="text" name='location' id='location' placeholder='One Apple Park Way; Cupertino, CA 95014, U.S.A.' />
+                  <input className={classes["addexperiences__content-input"]}
+                    type="text"
+                    name='location'
+                    id='location'
+                    placeholder='One Apple Park Way; Cupertino, CA 95014, U.S.A.' />
                 </div>
 
               </div>
@@ -76,11 +120,17 @@ const AddExperiences = () => {
 
             <div className={classes["addexperiences__content-description"]}>
               <label htmlFor="textarea">Description</label>
-              <textarea className={classes["addexperiences__content-textarea"]} name="description" id="description" cols="30" rows="4" placeholder='Tell us a little about the experience...'></textarea>
+              <textarea className={classes["addexperiences__content-textarea"]}
+                name="description"
+                id="description"
+                cols="30"
+                rows="4"
+                placeholder='Tell us a little about the experience...'>
+              </textarea>
             </div>
 
             <div className={classes["addexperiences__content-buttons"]}>
-              <button className={classes["addexperiences__content-add"]}>
+              <button type='submit' className={classes["addexperiences__content-add"]}>
                 Add
               </button>
             </div>

@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import classes from './afterprofile.module.scss'
 import avatar from '../../assets/avatar.png'
 import Experinces from '../Experinces/Experinces'
 import Educations from './../Educations/Educations';
 import Git from '../Git'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import { loadUserCompleted, loadUserEmail, loadUserInfo, loadUserToken } from '../../store/slices/user'
 
 const AfterProfile = () => {
 
+  // Backenddan va storedan user haqida ma'lumot olish
   let { email } = useSelector(({user}) => user)
+  let { info } = useSelector(({user}) => user)
+  let dispatch = useDispatch()
+  let navigate = useNavigate()
 
   const [userInfo, setUserInfo] = useState({})
   const [loading, setLoading] = useState(false)
@@ -31,22 +37,58 @@ const AfterProfile = () => {
     }
   }, [])
 
-  console.log(userInfo);
+
+  // Profilni o'chirish
+  // let { token } = useSelector(({user}) => user)
+
+  function handleDeleteBtn () {
+    let answerFirst = confirm("Rosdan ham profilni o'chirmoqchimisiz?")
+    if (!answerFirst) return
+    let answerSecond = confirm("Profilni qaytib tiklab bo'lmaydi!")
+    if (!answerSecond) return
+    let answerThird = confirm("Qaroringiz qat'iymi? Profilni o'chirasizmi?")
+    if (!answerThird) return
+
+    async function deleteProfile () {
+      try {
+        let data = await axios.delete("/profile")
+        if (data) {
+          console.log(data);
+          dispatch(loadUserToken(null))
+          dispatch(loadUserInfo(null))
+          dispatch(loadUserCompleted(false))
+          dispatch(loadUserEmail(null))
+          localStorage.clear()
+          toast("Profil o'chirildi", {type: "info"})
+          navigate("/")
+        }
+      } catch (error) {
+        toast(error, {type: "error"})        
+      }
+    }
+    deleteProfile()
+  }
 
 
 
 
 
-  let experiences = true
-  let educations = true
 
 
 
+
+
+
+  let experiences = info.experience.length === 0
+  let educations = info.education.length === 0
+  // let experiences = true
+  // let educations = true
 
   return loading ? <h2>Loading</h2> : (
     <div className={classes["afterProfile"]}>
       <div className="container">
         <div className={classes["afterProfile__content"]}>
+
           {/* Приветствие */}
           <div className={classes["afterProfile__greeting"]}>
             <p className={classes["afterProfile__content-title"]}>
@@ -213,7 +255,7 @@ const AfterProfile = () => {
           <div className={classes["afterProfile__delete"]}>
             <p className={classes["afterProfile__delete-title"]}>!!!DANGER ZONE!!!</p>
             <p className={classes["afterProfile__delete-text"]}>This area is so dangerous. You may delete all your data by accident in here! PLEASE BE CAREFUL!!!</p>
-            <button className={classes["afterProfile__delete-btn"]}>Delete account</button>
+            <button onClick={handleDeleteBtn} className={classes["afterProfile__delete-btn"]}>Delete account</button>
           </div>
 
 

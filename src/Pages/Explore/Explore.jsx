@@ -1,10 +1,17 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 import classes from './explore.module.scss'
-import useFetch from './../../Components/Hooks/useFetch';
 
 const Explore = () => {
-
+  let navigate = useNavigate()
+  let { isCompleted } = useSelector(({ user }) => user)
+  let { token } = useSelector(({ user }) => user)
+  console.log(token);
+  useEffect(() => {
+    if (isCompleted === false && !token) navigate("/")
+    if (isCompleted === false && token) navigate("/dashboard")
+  }, [isCompleted])
 
 
 

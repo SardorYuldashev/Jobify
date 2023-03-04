@@ -28,7 +28,7 @@ const userSlice = createSlice({
       state.isCompleted = payload
     },
     loadUserEmail(state, { payload }) {
-      state.isCompleted = payload
+      state.email = payload
     }
   }
 })
