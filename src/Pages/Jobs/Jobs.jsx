@@ -1,9 +1,14 @@
 import React from 'react'
-import { Link, useNavigate,  } from 'react-router-dom'
+import { Link, useNavigate, } from 'react-router-dom'
 import classes from './jobs.module.scss'
 import avatar from '../../assets/avatar.png'
+import { useParams } from 'react-router-dom'
 
 const Jobs = () => {
+  const { id } = useParams()
+
+  console.log(id);
+
   const navigate = useNavigate()
   const goBack = () => navigate(-1)
 
@@ -19,12 +24,12 @@ const Jobs = () => {
           </div>
 
           <div className={classes["jobs__content-item"]}>
-            <Link to="/jobs" className={classes["jobs__content-info"]}>
+            <div className={classes["jobs__content-info"]}>
               <h2 className={classes["jobs__content-theme"]}>Title</h2>
               <p className={classes["jobs__content-text"]}>Text</p>
               <p className={classes["jobs__content-text"]}>By: Author</p>
               <p className={classes["jobs__content-text"]}>1.03.2023</p>
-            </Link>
+            </div>
 
             <div className={classes["jobs__content-buttons"]}>
 

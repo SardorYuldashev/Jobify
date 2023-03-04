@@ -75,9 +75,9 @@
     }
     
     &-text {
-      max-width: 100%;
+      max-width: 80%;
       margin-top: 10px;
-      font-size: 20px;
+      font-size: 14px;
     }
 
     &-buttons {
@@ -93,7 +93,7 @@
     }
 
     &-btn {
-      padding: 8px 60px;
+      padding: 8px 40px;
       border: none;
       transition: .3s;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -115,7 +115,7 @@
       }
     }
 
-    &-apply {
+    &-delete {
       padding: 8px 60px;
       border: none;
       transition: .3s;

@@ -40,8 +40,7 @@ const Explore = () => {
 
 
 
-  // Like bosish
-
+  // Like button click
   async function handleLike(id) {
     try {
       let { data } = await axios.put(`/jobs/like/${id}`)
@@ -52,6 +51,7 @@ const Explore = () => {
     }
   }
 
+  // Dislike button click
   async function handleDislike(id) {
     try {
       let { data } = await axios.put(`/jobs/unlike/${id}`)
@@ -62,6 +62,7 @@ const Explore = () => {
     }
   }
 
+  // Apply button click
   async function handleApply(id) {
     try {
       let { data } = await axios.post(`/jobs/apply/${id}`)
@@ -84,7 +85,7 @@ const Explore = () => {
 
             {jobs?.map((item) =>
               <li key={item._id} className={classes["explore__content-li"]}>
-                <Link to="/jobs" className={classes["explore__content-info"]}>
+                <Link to={`/jobs/${item._id}`} className={classes["explore__content-info"]}>
                   <h2 className={classes["explore__content-theme"]}>{item.title}</h2>
                   <p className={classes["explore__content-text"]}>{item.description}</p>
                   <p className={classes["explore__content-text"]}>By: {item.name}</p>
