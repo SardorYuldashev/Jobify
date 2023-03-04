@@ -1,15 +1,31 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import AfterProfile from '../../Components/AfterProfile'
 import BeforeProfile from '../../Components/BeforeProfile'
-import { localTokenKey } from '../../Components/Constants'
 import classes from './dashboard.module.scss'
-import Login from './../Login/index';
+import axios from 'axios'
+import { loadUserEmail, loadUserID, loadUserName } from '../../store/slices/user'
 
-const Dashboard = () => {
+const Dashboard = () => {  
+  const [userName, setUserName] = useState(null)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    (async function getUserName () {
+      let {data} = await axios.get('/auth')
+      if(data) {
+        dispatch(loadUserEmail(data.email))
+        dispatch(loadUserName(data.name))
+        dispatch(loadUserID(data._id))
+        localStorage.setItem("userEmail", data.email)
+        localStorage.setItem("userName", data.name)
+        localStorage.setItem("userID", data._id)        
+      }
+    })()
+
+  }, [])
   
-  // let { info } = useSelector(({user}) => user)
-  // console.log(info);
+
 
 
 

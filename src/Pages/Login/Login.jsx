@@ -38,10 +38,10 @@ const Login = () => {
 
       if (token) {
         localStorage.setItem(localTokenKey, token)
-        localStorage.setItem("userEmail", values.email)
+        // localStorage.setItem("userEmail", values.email)
         axios.defaults.headers.common["access-token"] = token
         dispatch(loadUserToken(token))  
-        dispatch(loadUserEmail(values.email))
+        // dispatch(loadUserEmail(values.email))
       }
       toast("Siz profilingizga kirdingiz", { type: "info" })
 

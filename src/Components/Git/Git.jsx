@@ -1,7 +1,31 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useState } from 'react'
 import classes from './git.module.scss'
+import { useSelector } from 'react-redux';
 
 const Git = () => {
+
+  // Keyin yana ko'rib chiqish kerak==================================
+  // let { userName } = useSelector(({ user }) => user)
+
+  // const [gitHub, setGitHub] = useState([])
+  // async function getGitHub () {
+  //   let { data } = await axios.get(`/profile/github/${apple}`)
+  //   console.log(data);
+  // }
+  // getGitHub()
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className={classes["git"]}>
       <ul className={classes["git__list"]}>

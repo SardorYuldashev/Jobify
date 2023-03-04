@@ -5,13 +5,17 @@ let token = localStorage.getItem(localTokenKey)
 let isCompleted = localStorage.getItem("isCompleted")
 let userInfo = JSON.parse(localStorage.getItem("userInfo"))
 let userEmail = localStorage.getItem("userEmail")
+let userName = localStorage.getItem("userName")
+let userID = localStorage.getItem("userID")
 
 
 const initialState = {
   info: userInfo || null,
   token: token || null,
   isCompleted: isCompleted || false,
-  email: userEmail || null
+  email: userEmail || null,
+  userName: userName || null,
+  userID: userID || null
 }
 
 const userSlice = createSlice({
@@ -29,11 +33,17 @@ const userSlice = createSlice({
     },
     loadUserEmail(state, { payload }) {
       state.email = payload
+    },
+    loadUserName(state, { payload }) {
+      state.userName = payload
+    },
+    loadUserID(state, { payload }) {
+      state.userID = payload
     }
   }
 })
 
-export const { loadUserToken, loadUserInfo, loadUserCompleted, loadUserEmail } = userSlice.actions
+export const { loadUserToken, loadUserInfo, loadUserCompleted, loadUserEmail, loadUserName, loadUserID } = userSlice.actions
 
 const userReducer = userSlice.reducer
 

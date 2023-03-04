@@ -48,10 +48,8 @@ const Register = () => {
 
       if (token) {
         localStorage.setItem(localTokenKey, token)
-        localStorage.setItem("userEmail", values.email)
         axios.defaults.headers.common["access-token"] = token
         dispatch(loadUserToken(token))
-        dispatch(loadUserEmail(values.email))
       }
       
       toast("Siz muvaffaqiyatli ro'yxatdan o'tdingiz!!!", { type: "info" })
