@@ -1,11 +1,65 @@
+import axios from 'axios'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import { loadUserInfo } from '../../store/slices/user'
 import classes from './addexperiences.module.scss'
 
 const AddExperiences = () => {
-  const [values, setValues] = useState([
+  const dispatch = useDispatch()
+  let navigate = useNavigate()
+  const [values, setValues] = useState({
+    title: "",
+    company: "",
+    from: "",
+    to: "",
+    location: "",
+    description: "",
+  })
 
-  ])
+  function handleInpChange(e) {
+    setValues((v) => ({ ...v, [e.target.name]: e.target.value }))
+  }
+
+  async function addExperience(e) {
+    e.preventDefault()
+
+    if (!values.title && !values.company && !values.from) {
+      return toast("Title, Company va Date bo'limlari to'ldirilishi shart", { type: "error" })
+    }
+
+    try {
+      let { data } = await axios.put("/profile/experience", values)
+      if (data) {
+
+        dispatch(loadUserInfo(data))
+        localStorage.setItem("userInfo", JSON.stringify(data))
+        setValues({ title: "", company: "", from: "", to: "", location: "", description: "" })
+        toast("Ish joyi qo'shildi", {type: "info"})
+        navigate(-1)
+      }
+
+
+    } catch (error) {
+      if (error.response) {
+        if (error.response.data.message)
+          toast(error.response.data.message, { type: "error" })
+        error.response.data.errors?.forEach((err) =>
+          toast(`${err.param} ${err.msg}`, { type: "error" }))
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+  }
 
 
 
@@ -36,7 +90,7 @@ const AddExperiences = () => {
           </p>
 
 
-          <form className={classes["addexperiences__content-form"]}>
+          <form onSubmit={addExperience} className={classes["addexperiences__content-form"]}>
 
             {/* Tepa qismi */}
             <div className={classes["addexperiences__content-wrapper"]}>
@@ -47,41 +101,56 @@ const AddExperiences = () => {
                 <div className={classes["addexperiences__content-item"]}>
                   <label className={classes["addexperiences__content-label"]}
                     htmlFor="title">
-                    Titile
+                    Title
                   </label>
                   <input className={classes["addexperiences__content-input"]}
                     type="text"
                     name='title'
                     id='title'
-                    placeholder='Senior Developer' />
+                    placeholder='Senior Developer'
+                    value={values.title}
+                    onChange={handleInpChange} />
                 </div>
 
                 <div className={classes["addexperiences__content-item"]}>
                   <label className={classes["addexperiences__content-label"]}
-                    htmlFor="date1">
+                    htmlFor="from">
                     Date
                   </label>
 
                   <div className={classes["addexperiences__content-inputs"]}>
 
+
                     <input className={classes["addexperiences__content-inputDate"]}
                       type="date"
-                      name='date1'
-                      id='date1' />
+                      name='from'
+                      id='from'
+                      value={values.from}
+                      onChange={handleInpChange} />
+
+
                     <span>To</span>
+
+                    <label className={classes["addexperiences__content-inputCheckLabel"]}
+                      htmlFor="checkbox">
+                      Current
+                    </label>
+
+                    <input className={classes["addexperiences__content-inputCheck"]}
+                      type="checkbox"
+                      name='checkbox'
+                      id='checkbox' />
+
+
+
+
+
                     <input className={classes["addexperiences__content-inputDate"]}
                       type="date"
-                      name='date2' id='date2' />
-                    <div>
-                      <input
-                        type="checkbox"
-                        name='checkbox'
-                        id='checkbox' />
-                      <label
-                        htmlFor="checkbox">
-                        Current
-                      </label>
-                    </div>
+                      name='to'
+                      id='to'
+                      value={values.to}
+                      onChange={handleInpChange} />
                   </div>
                 </div>
 
@@ -99,7 +168,9 @@ const AddExperiences = () => {
                     type="text"
                     name='company'
                     id='company'
-                    placeholder='Apple' />
+                    placeholder='Apple'
+                    value={values.company}
+                    onChange={handleInpChange} />
                 </div>
 
                 <div className={classes["addexperiences__content-item"]}>
@@ -111,7 +182,9 @@ const AddExperiences = () => {
                     type="text"
                     name='location'
                     id='location'
-                    placeholder='One Apple Park Way; Cupertino, CA 95014, U.S.A.' />
+                    placeholder='One Apple Park Way; Cupertino, CA 95014, U.S.A.'
+                    value={values.location}
+                    onChange={handleInpChange} />
                 </div>
 
               </div>
@@ -125,7 +198,9 @@ const AddExperiences = () => {
                 id="description"
                 cols="30"
                 rows="4"
-                placeholder='Tell us a little about the experience...'>
+                placeholder='Tell us a little about the experience...'
+                value={values.description}
+                onChange={handleInpChange} >
               </textarea>
             </div>
 

@@ -63,7 +63,7 @@
 
     &-inputs {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       gap: 10px;
 
@@ -74,7 +74,15 @@
     }
 
     &-inputDate {
-      width: 100%;
+      width: 200px;
+      border-radius: 5px;
+      padding: 10px;
+      outline: none;
+      border: 1px solid rgb(219, 216, 216);
+    }
+
+    &-inputDate2 {
+      width: 200px;
       border-radius: 5px;
       padding: 10px;
       outline: none;
@@ -112,4 +120,9 @@
       }
     }
   }
+}
+
+.addexperiences__content-inputCheck:checked + .addexperiences__content-inputDate  {  
+    pointer-events: none;
+    opacity: .5;
 }

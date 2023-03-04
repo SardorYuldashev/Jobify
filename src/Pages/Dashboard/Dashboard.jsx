@@ -8,6 +8,8 @@ import Login from './../Login/index';
 
 const Dashboard = () => {
   
+  // let { info } = useSelector(({user}) => user)
+  // console.log(info);
 
 
 
