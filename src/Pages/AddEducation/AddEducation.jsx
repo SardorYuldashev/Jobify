@@ -3,6 +3,20 @@ import { Link } from 'react-router-dom'
 import classes from './addeducation.module.scss'
 
 const AddEducation = () => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   return (
     <div className={classes["addeducations"]}>
       <div className="container">

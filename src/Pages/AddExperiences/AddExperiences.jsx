@@ -13,7 +13,7 @@ const AddExperiences = () => {
     title: "",
     company: "",
     from: "",
-    to: "",
+    to: null,
     location: "",
     description: "",
   })
@@ -25,7 +25,7 @@ const AddExperiences = () => {
   async function addExperience(e) {
     e.preventDefault()
 
-    if (!values.title && !values.company && !values.from) {
+    if (!values.title || !values.company || !values.from) {
       return toast("Title, Company va Date bo'limlari to'ldirilishi shart", { type: "error" })
     }
 
@@ -49,29 +49,7 @@ const AddExperiences = () => {
           toast(`${err.param} ${err.msg}`, { type: "error" }))
       }
     }
-
-
-
-
-
-
-
-
-
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   return (
@@ -140,10 +118,6 @@ const AddExperiences = () => {
                       type="checkbox"
                       name='checkbox'
                       id='checkbox' />
-
-
-
-
 
                     <input className={classes["addexperiences__content-inputDate"]}
                       type="date"
