@@ -1,6 +1,4 @@
-
-
-.addeducations {
+.addeducation {
   margin-top: 20px;
   min-height: calc(100vh - 100px);
 
@@ -65,7 +63,7 @@
 
     &-inputs {
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       gap: 10px;
 
@@ -76,7 +74,15 @@
     }
 
     &-inputDate {
-      width: 100%;
+      width: 200px;
+      border-radius: 5px;
+      padding: 10px;
+      outline: none;
+      border: 1px solid rgb(219, 216, 216);
+    }
+
+    &-inputDate2 {
+      width: 200px;
       border-radius: 5px;
       padding: 10px;
       outline: none;
@@ -114,4 +120,9 @@
       }
     }
   }
+}
+
+.addeducation__content-inputCheck:checked + .addeducation__content-inputDate  {  
+    pointer-events: none;
+    opacity: .5;
 }

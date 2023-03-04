@@ -13,7 +13,7 @@ const AddExperiences = () => {
     title: "",
     company: "",
     from: "",
-    to: null,
+    to: "",
     location: "",
     description: "",
   })
