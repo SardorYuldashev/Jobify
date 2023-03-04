@@ -40,7 +40,7 @@ const AddEducation = () => {
         dispatch(loadUserInfo(data))
         localStorage.setItem("userInfo", JSON.stringify(data))
         setValues({ title: "", company: "", from: "", to: "", location: "", description: "" })
-        toast("O'quv yurtlari qo'shildi", {type: "info"})
+        toast("O'quv yurti qo'shildi", {type: "info"})
         navigate(-1)
       }
     } catch (error) {

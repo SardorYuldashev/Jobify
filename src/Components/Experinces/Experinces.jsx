@@ -20,7 +20,8 @@ const Experinces = () => {
         
 
       } catch (error) {
-        toast("Experinces component 19", { type: "error" })
+        toast(`Experiences component ${error}`, { type: "error" })
+
       }
     }
     getUserInfo()
@@ -70,7 +71,7 @@ const Experinces = () => {
             </p>
 
             <p className={classes["experiences__list-text"]}>
-              <span>Until:</span> { (!item.to) ?  "Until today" : item.to.slice(0,10)}
+              <span>Until:</span> { (!item.to) ?  "Now" : item.to.slice(0,10)}
             </p>
 
             <p className={classes["experiences__list-text"]}>
@@ -86,37 +87,6 @@ const Experinces = () => {
             Delete
           </button>
         </li>)}
-
-        {/* <li className={classes["experiences__list-li"]}>
-          <div className={classes["experiences__list-info"]}>
-
-            <h2 className={classes["experiences__list-title"]}>
-              <span className={classes["experiences__list-status"]}>Junior</span>
-              <span> at </span>
-              <span className={classes["experiences__list-company"]}>Microsoft</span>
-            </h2>
-
-            <p className={classes["experiences__list-text"]}>
-              From: 01/01/2001
-            </p>
-
-            <p className={classes["experiences__list-text"]}>
-              Until: 02/02/2002
-            </p>
-
-            <p className={classes["experiences__list-text"]}>
-              Location: USA
-            </p>
-
-            <p className={classes["experiences__list-text"]}>
-              Description: Yes
-            </p>
-          </div>
-
-          <div className={classes["experiences__list-btn"]}>
-            Delete
-          </div>
-        </li> */}
 
       </ul>      
     </div>
