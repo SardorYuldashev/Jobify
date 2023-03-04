@@ -7,13 +7,13 @@ function useFetch (url) {
 
   useEffect(() => {
 
-    let unmounted = false
+    // let unmounted = false
 
     (async () => {
       try {
         isLoading(true)
         let data = await axios.get(url)
-        if (unmounted) return
+        // if (unmounted) return
         setData(data)
         isLoading(false)
 
@@ -24,7 +24,7 @@ function useFetch (url) {
     }) ()
 
     return () => {
-      unmounted = true
+      // unmounted = true
     }
 
   }, [url])

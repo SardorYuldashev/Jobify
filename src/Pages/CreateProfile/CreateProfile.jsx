@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import classes from './createprofile.module.scss'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { loadUserCompleted, loadUserInfo } from '../../store/slices/user';
+import { loadUserInfo } from '../../store/slices/user';
 import { useDispatch } from 'react-redux';
 
 const CreateProfile = () => {
@@ -37,8 +37,11 @@ const CreateProfile = () => {
     try {
       let { data } = await axios.post("/profile", values)
 
+
       dispatch(loadUserInfo(data))
-      dispatch(loadUserCompleted(true))
+      localStorage.setItem("isCompleted", true)
+      localStorage.setItem("userInfo", JSON.stringify(data))
+      toast("Profil muvaffaqiyatli to'ldirildi", {type: "info"})
       navigate("/dashboard")
       
     } catch (error) {

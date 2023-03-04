@@ -1,27 +1,56 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import classes from './afterprofile.module.scss'
 import avatar from '../../assets/avatar.png'
 import Experinces from '../Experinces/Experinces'
 import Educations from './../Educations/Educations';
 import Git from '../Git'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
 
 const AfterProfile = () => {
+
+  let { email } = useSelector(({user}) => user)
+
+  const [userInfo, setUserInfo] = useState({})
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    let unmounted = false
+    async function getUser() {
+      setLoading(true)
+      let { data } = await axios.get("/profile/me")
+      if (unmounted) return
+      setLoading(false)
+      setUserInfo(data)
+    }
+    getUser()
+
+    return () => {
+      unmounted = true
+    }
+  }, [])
+
+  console.log(userInfo);
+
+
+
+
+
   let experiences = true
   let educations = true
 
 
 
 
-
-  return (
+  return loading ? <h2>Loading</h2> : (
     <div className={classes["afterProfile"]}>
       <div className="container">
         <div className={classes["afterProfile__content"]}>
           {/* Приветствие */}
           <div className={classes["afterProfile__greeting"]}>
             <p className={classes["afterProfile__content-title"]}>
-              Hello, Person
+              Hello, {userInfo?.user?.name}
             </p>
             <p className={classes["afterProfile__greeting-text"]}>
               What are you planning to do today?
@@ -50,31 +79,31 @@ const AfterProfile = () => {
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Email: <a href="email">example@mail.ru</a>
+                      Email: <a href="email">{email}</a>
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Status: Looking for new opportunities
+                      Status: {userInfo?.status}
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Location: USA
+                      Location: {userInfo?.location}
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Bio: Bio
+                      Bio: {userInfo?.bio}
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Joined at: 02/03/2023
+                      Joined at: {userInfo?.date}
                     </p>
                   </li>
                 </ul>
@@ -83,30 +112,30 @@ const AfterProfile = () => {
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Company: Apple Inc.
+                      Company: {userInfo?.company}
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Website: <a href="email">https://apple.com</a>
+                      Website: <a href="email">{userInfo?.website}</a>
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Skills: HTML CSS JS
+                      Skills: {userInfo?.skills}
                     </p>
                   </li>
                 </ul>
 
                 <ul className={classes["afterProfile__info-list"]}>
 
-                  {/* <li className={classes["afterProfile__info-li"]}>
+                  <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Company: Apple Inc.
+                      
                     </p>
-                  </li> */}
+                  </li>
                 </ul>
 
               </div>
@@ -176,7 +205,7 @@ const AfterProfile = () => {
               Recent Git Repos
             </p>
 
-            <Git />          
+            <Git />
 
           </div>
 

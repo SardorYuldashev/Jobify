@@ -1,8 +1,29 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import classes from './explore.module.scss'
+import useFetch from './../../Components/Hooks/useFetch';
 
 const Explore = () => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className={classes["explore"]}>
       <div className="container">

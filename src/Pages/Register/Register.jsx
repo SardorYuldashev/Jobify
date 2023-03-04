@@ -4,10 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { localTokenKey } from '../../Components/Constants';
-import { loadUserToken } from '../../store/slices/user';
+import { loadUserEmail, loadUserToken } from '../../store/slices/user';
+import { useDispatch } from 'react-redux';
 
 const Register = () => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+
 
   const [values, setValues] = useState({
     name: "",
@@ -22,7 +26,6 @@ const Register = () => {
 
   async function handleRegister(e) {
     e.preventDefault()
-    console.log(values);
     if (!values.name || !values.email || !values.password || !values.confirmPassword) {
       return toast("Bo'sh inputlarni to'ldiring", { type: "error" })
     }
@@ -39,15 +42,20 @@ const Register = () => {
       return toast("Parollar har xil", { type: "error" })
     }
 
-    try {
+       try {
       let { data } = await axios.post("/users", values)
       let { token } = data
-      localStorage.setItem(localTokenKey, token)
-      axios.defaults.headers.common["access-token"] = token
-      toast("Siz muvaffaqiyatli ro'yxatdan o'tdingiz!!!", { type: "info" })
-      dispatch(loadUserToken(data))
 
-      navigate("/create-profile")
+      if (token) {
+        localStorage.setItem(localTokenKey, token)
+        localStorage.setItem("userEmail", values.email)
+        axios.defaults.headers.common["access-token"] = token
+        dispatch(loadUserToken(token))
+        dispatch(loadUserEmail(values.email))
+      }
+      
+      toast("Siz muvaffaqiyatli ro'yxatdan o'tdingiz!!!", { type: "info" })
+      navigate("/dashboard")
     } catch (error) {
       if (error.response) {
         if (error.response.data.message)
@@ -56,7 +64,6 @@ const Register = () => {
           toast(`${err.param} ${err.msg}`, { type: "error" }))
       }
     }
-
 
   }
 

@@ -1,9 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { localTokenKey } from '../../Components/Constants'
+
+let token = localStorage.getItem(localTokenKey)
+let isCompleted = localStorage.getItem("isCompleted")
+let userInfo = JSON.parse(localStorage.getItem("userInfo"))
+let userEmail = localStorage.getItem("userEmail")
+
 
 const initialState = {
-  info: null,
-  token: null,
-  isCompleted: false
+  info: userInfo || null,
+  token: token || null,
+  isCompleted: isCompleted || false,
+  email: userEmail || null
 }
 
 const userSlice = createSlice({
@@ -18,11 +26,14 @@ const userSlice = createSlice({
     },
     loadUserCompleted(state, { payload }) {
       state.isCompleted = payload
+    },
+    loadUserEmail(state, { payload }) {
+      state.isCompleted = payload
     }
   }
 })
 
-export const { loadUserToken, loadUserInfo, loadUserCompleted } = userSlice.actions
+export const { loadUserToken, loadUserInfo, loadUserCompleted, loadUserEmail } = userSlice.actions
 
 const userReducer = userSlice.reducer
 

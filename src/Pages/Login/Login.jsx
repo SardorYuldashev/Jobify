@@ -5,11 +5,11 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 import { localTokenKey } from '../../Components/Constants'
 import { useDispatch } from 'react-redux'
-import { loadUserToken } from '../../store/slices/user'
+import { loadUserEmail, loadUserToken } from '../../store/slices/user'
 
 const Login = () => {
   const navigate = useNavigate()
-  const dispatch =  useDispatch()
+  const dispatch = useDispatch()
 
   const [values, setValues] = useState({
     email: "",
@@ -20,7 +20,7 @@ const Login = () => {
     setValues((v) => ({ ...v, [e.target.name]: e.target.value }))
   }
 
-  async function handleRegister (e) {
+  async function handleRegister(e) {
     e.preventDefault()
 
     if (!values.email || !values.password) {
@@ -35,11 +35,18 @@ const Login = () => {
     try {
       let { data } = await axios.post("/auth", values)
       let { token } = data
-      localStorage.setItem(localTokenKey, token)
-      axios.defaults.headers.common["access-token"] = token
+
+      if (token) {
+        localStorage.setItem(localTokenKey, token)
+        localStorage.setItem("userEmail", values.email)
+        axios.defaults.headers.common["access-token"] = token
+        dispatch(loadUserToken(token))  
+        dispatch(loadUserEmail(values.email))
+      }
       toast("Siz profilingizga kirdingiz", { type: "info" })
-      dispatch(loadUserToken(data))
-      navigate("/create-profile")
+
+      navigate("/dashboard")
+
     } catch (error) {
       if (error.response) {
         if (error.response.data.message)
