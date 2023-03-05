@@ -80,5 +80,15 @@
         background: rgb(111, 111, 235);
       }
     }
+
+    &-text {
+      margin-top: 20px;
+      text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 14px;
+      color: rgb(116, 128, 196);
+      font-style: italic;
+      cursor: default;
+    }
   }
 }
