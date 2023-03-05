@@ -42,7 +42,7 @@ const Jobs = () => {
   }
 
   //Apply button change
-  async function hanleApply(id) {
+  async function hanleDislike(id) {
     try {
       let { data } = await axios.put(`/jobs/unlike/${id}`)
       toast("Laykingiz o'chirildi", { type: "info" })
@@ -53,7 +53,7 @@ const Jobs = () => {
   }
 
   //Dislike button change
-  async function hanleDislike(id) {
+  async function hanleApply(id) {
     try {
       let { data } = await axios.put(`/jobs/apply/${id}`)
       toast(" Ro'yhatingizga qo'shildi", { type: "info" })
@@ -129,64 +129,6 @@ const Jobs = () => {
                     </Link>
                   </div>
                 </li>)}
-
-
-
-
-
-
-
-
-
-
-
-               
-              {/* <li className={classes["jobs__content-user"]}>
-                <div className={classes["jobs__content-imgBox"]}>
-                  <img className={classes["jobs__content-img"]} src={avatar} alt="" />
-                </div>
-
-                <div className={classes["jobs__content-userInfo"]}>
-                  <h2 className={classes["jobs__content-useName"]}>
-                    Person Abduvali Rajab Boboy
-                  </h2>
-                  <a className={classes["jobs__content-useEmail"]} href="#!">
-                    henkook-baron@mail.ru
-                  </a>
-                </div>
-
-                <div className={classes["jobs__content-userButtons"]}>
-                  <Link to="/profile" className={classes["jobs__content-userBtn"]}>
-                    View Profile
-                  </Link>
-                </div>
-
-
-              </li>
-
-              <li className={classes["jobs__content-user"]}>
-                <div className={classes["jobs__content-imgBox"]}>
-                  <img className={classes["jobs__content-img"]} src={avatar} alt="" />
-                </div>
-
-                <div className={classes["jobs__content-userInfo"]}>
-                  <h2 className={classes["jobs__content-useName"]}>
-                    Person Abduvali Rajab Boboy
-                  </h2>
-                  <a className={classes["jobs__content-useEmail"]} href="#!">
-                    henkook-baron@mail.ru
-                  </a>
-                </div>
-
-                <div className={classes["jobs__content-userButtons"]}>
-                  <Link to="/profile" className={classes["jobs__content-userBtn"]}>
-                    View Profile
-                  </Link>
-                </div>
-
-
-              </li>  */}
-
             </ul>
 
           </div>}

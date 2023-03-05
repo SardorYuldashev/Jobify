@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './editprofile.module.scss'
@@ -57,6 +57,13 @@ const EditProfile = () => {
     <div className={classes["editprofile"]}>
       <div className="container">
         <div className={classes["editprofile__content"]}>
+
+        <div className={classes["editprofile__content-buttonsBack"]}>
+            <Link to="/dashboard" className={classes["editprofile__content-btnBack"]}>
+              Back to Dashborad
+            </Link>
+          </div>
+
           <p className={classes["editprofile__content-info"]}>
             * = required fields
           </p>

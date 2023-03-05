@@ -11,11 +11,11 @@ const EditSocial = () => {
   let socialLinks = info.social
 
   const [values, setValues] = useState({
-    youtube: socialLinks.youtube || "",
-    twitter: socialLinks.twitter || "",
-    instagram: socialLinks.instagram || "",
-    linkedin: socialLinks.linkedin || "",
-    facebook: socialLinks.facebook || "",
+    youtube: socialLinks?.youtube || "",
+    twitter: socialLinks?.twitter || "",
+    instagram: socialLinks?.instagram || "",
+    linkedin: socialLinks?.linkedin || "",
+    facebook: socialLinks?.facebook || "",
   })
 
   function handleInpChange(e) {

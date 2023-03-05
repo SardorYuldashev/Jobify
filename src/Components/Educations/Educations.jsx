@@ -5,7 +5,6 @@ import { toast } from 'react-toastify'
 import { loadUserInfo } from '../../store/slices/user'
 import classes from './educations.module.scss'
 
-
 const Educations = () => {
   const dispatch = useDispatch()
   const [userInfo, setUserInfo] = useState([])
@@ -18,15 +17,12 @@ const Educations = () => {
         if (data) {
           setUserInfo(data.education)
         }
-        
-
       } catch (error) {
         toast(`Education component ${error}`, { type: "error" })
       }
     }
     getUserInfo()
   }, [render])
-
 
   async function deleteExperince (id) {    
     try {
@@ -46,12 +42,7 @@ const Educations = () => {
           toast(`${err.param} ${err.msg}`, { type: "error" }))
       }
     }
-  }
-
-
-
-
-  
+  }  
 
   return (
     <div className={classes["educations"]}>
@@ -61,9 +52,9 @@ const Educations = () => {
           <div className={classes["educations__list-info"]}>
 
             <h2 className={classes["educations__list-title"]}>
-              <span className={classes["educations__list-status"]}>{item.school}</span>
+              <span className={classes["educations__list-status"]}>{item.degree}</span>
               <span> at </span>
-              <span className={classes["educations__list-company"]}>{item.degree}</span>
+              <span className={classes["educations__list-company"]}>{item.school}</span>
             </h2>
 
             <p className={classes["educations__list-text"]}>
@@ -75,7 +66,7 @@ const Educations = () => {
             </p>
 
             <p className={classes["educations__list-text"]}>
-              <span>Location:</span> {item.fieldofstudy}
+              <span>Field of study:</span> {item.fieldofstudy}
             </p>
 
             <p className={classes["educations__list-text"]}>

@@ -25,14 +25,21 @@ const Profile = () => {
         let { data } = await axios.get(`/profile/user/${id}`)
         if (data) {
 
-          let { data: gitHub } = await axios.get(`/profile/github/${data.githubusername}`)
-          setGitHubList(gitHub)
+          try {
+            let { data: gitHub } = await axios.get(`/profile/github/${data.githubusername}`)
+            setGitHubList(gitHub)
+          } catch (error) {
+            
+          }
+
+          
           setUserInfo([data])
           setExperience(data.experience)
           setEducation(data.education)
         }
       } catch (error) {
-        toast(error, { type: "error" })
+        toast("Profil to'liq ro'yxatdan o'tmagan yoki o'chirib tashlangan", {type: "error"})
+        navigate("/explore")
       }
     })()
   }, [])
@@ -291,7 +298,7 @@ const Profile = () => {
                 Recent Git Repos
               </p>
 
-              {gitHubList.length > 0 ? gitHubList?.map((item) => (
+              {gitHubList[0] > 0 ? gitHubList?.map((item) => (
                 <li key={item.id} className={classes["git__list-li"]}>
 
 

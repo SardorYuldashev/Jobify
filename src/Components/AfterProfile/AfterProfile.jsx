@@ -111,31 +111,31 @@ const AfterProfile = () => {
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Email: <a href="email">{email}</a>
+                      <span>Email:</span> <a href="email">{email}</a>
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Status: {userInfo?.status}
+                      <span>Status:</span> {userInfo?.status}
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Location: {userInfo?.location}
+                      <span>Location:</span> {userInfo?.location}
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Bio: {userInfo?.bio}
+                      <span>Bio:</span> {userInfo?.bio}
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Joined at: {userInfo?.date}
+                      <span>Joined at:</span> {userInfo.date ? userInfo?.date.slice(0, 10) : userInfo.date}
                     </p>
                   </li>
                 </ul>
@@ -144,60 +144,62 @@ const AfterProfile = () => {
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Company: {userInfo?.company}
+                      <span>Company:</span> {userInfo?.company}
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      Website: <a href="email">{userInfo?.website}</a>
+                      <span>Website:</span> <a target={'_blank'} href={userInfo?.website}>{userInfo?.website}</a>
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
-                    <p className={classes["afterProfile__info-text"]}>
-                      Skills: {userInfo?.skills}
-                    </p>
+                    <div className={classes["afterProfile__info-text"]}>
+                      <span>Skills:</span> {userInfo.skills ? userInfo.skills.map((item) => (
+                        <div key={crypto.randomUUID()} className={classes["afterProfile__info-textBox"]}><i className="fa-solid fa-check"></i>{item} </div>
+                      )) : userInfo?.skills}
+                    </div>
                   </li>
                 </ul>
 
                 <ul className={classes["afterProfile__info-list"]}>
 
                   <li className={classes["afterProfile__info-li"]}>
-                    {info.social.youtube === "" ? <h2> </h2> :
-                      <a href={info.social.youtube} target={'_blank'} className={classes["afterProfile__info-links"]}>
+                    {info?.social?.youtube === "" ? <h2> </h2> :
+                      <a href={info?.social?.youtube} target={'_blank'} className={classes["afterProfile__info-links"]}>
                         <i className="fa-brands fa-youtube afterProfile__info-icon"></i> Youtube
                       </a>
                     }
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
-                    {info.social.twitter === "" ? <h2> </h2> :
-                      <a href={info.social.twitter} target={'_blank'} className={classes["afterProfile__info-links"]}>
+                    {info?.social?.twitter === "" ? <h2> </h2> :
+                      <a href={info?.social?.twitter} target={'_blank'} className={classes["afterProfile__info-links"]}>
                         <i className="fa-brands fa-twitter afterProfile__info-icon"></i> Twitter
                       </a>
                     }
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
-                    {info.social.instagram === "" ? <h2> </h2> :
-                      <a href={info.social.instagram} target={'_blank'} className={classes["afterProfile__info-links"]}>
+                    {info?.social?.instagram === "" ? <h2> </h2> :
+                      <a href={info?.social?.instagram} target={'_blank'} className={classes["afterProfile__info-links"]}>
                         <i className="fa-brands fa-instagram afterProfile__info-icon"></i> Instagram
                       </a>
                     }
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
-                    {info.social.linkedin === "" ? <h2> </h2> :
-                      <a href={info.social.linkedin} target={'_blank'} className={classes["afterProfile__info-links"]}>
+                    {info?.social?.linkedin === "" ? <h2> </h2> :
+                      <a href={info?.social?.linkedin} target={'_blank'} className={classes["afterProfile__info-links"]}>
                         <i className="fa-brands fa-linkedin afterProfile__info-icon"></i> Linkedin
                       </a>
                     }
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
-                    {info.social.facebook === "" ? <h2> </h2> :
-                      <a href={info.social.facebook} target={'_blank'} className={classes["afterProfile__info-links"]}>
+                    {info?.social?.facebook === "" ? <h2> </h2> :
+                      <a href={info?.social?.facebook} target={'_blank'} className={classes["afterProfile__info-links"]}>
                         <i className="fa-brands fa-facebook afterProfile__info-icon"></i> Facebook
                       </a>
                     }

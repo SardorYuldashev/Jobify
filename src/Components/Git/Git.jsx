@@ -42,19 +42,19 @@ const Git = () => {
               </p>
 
               <p className={classes["git__list-text"]}>
-                Created at: {item.created_at.slice(0, 10)}
+                <span className={classes["git__list-infoSpan"]}>Created at:</span> {item.created_at.slice(0, 10)}
               </p>
 
               <p className={classes["git__list-text"]}>
-                Main language: {item.language}
+                <span className={classes["git__list-infoSpan"]}>Main language:</span> {item.language}
               </p>
 
               <p className={classes["git__list-text"]}>
-                Main branch: {item.default_branch}
+                <span className={classes["git__list-infoSpan"]}>Main branch:</span> {item.default_branch}
               </p>
 
               <p className={classes["git__list-text"]}>
-                Visibility: {item.visibility}
+                <span className={classes["git__list-infoSpan"]}>Visibility:</span> {item.visibility}
               </p>
             </a>
 

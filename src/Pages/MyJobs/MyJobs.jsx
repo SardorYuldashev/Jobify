@@ -13,7 +13,6 @@ const MyJobs = () => {
     if (isCompleted === false) navigate("/dashboard")
   }, [isCompleted])
 
-
   // Create new job
   const [refresh, setRefresh] = useState(false)
   const [values, setValues] = useState({
@@ -67,15 +66,6 @@ const MyJobs = () => {
     }
   }
 
-
-
-
-
-
-
-
-
-
   return (
     <div className={classes["myjobs"]}>
       <div className="container">
@@ -126,11 +116,9 @@ const MyJobs = () => {
             Jobs you posted
           </p>
 
-
           <ul className={classes["myjobs__content-list"]}>
             {loading ? <h2>Loading, please wait...</h2> : (
               jobs?.map((item) => <li key={item._id} className={classes["myjobs__content-li"]}>
-
                 <Link to={`/jobs/${item._id}`} className={classes["myjobs__content-info"]}>
                   <h2 className={classes["myjobs__content-theme"]}>{item.title}</h2>
                   <p className={classes["myjobs__content-text"]}>{item.description}</p>
@@ -139,17 +127,14 @@ const MyJobs = () => {
                 <div className={classes["myjobs__content-buttons"]}>
 
                   <div className={classes["myjobs__content-left"]}>
-                    <button className={classes["myjobs__content-btn"]}>Like <span>{item.likes.length}</span></button>
+                    <button className={classes["myjobs__content-btn"]}>Likes <span>{item.likes.length}</span></button>
                     <button className={classes["myjobs__content-btn"]}>Applicants <span>{item.applicants.length}</span></button>
                   </div>
 
                   <div className={classes["myjobs__content-right"]}>
                     <button onClick={() => { deleteJob(item._id) }} className={classes["myjobs__content-delete"]}>Delete</button>
                   </div>
-
                 </div>
-
-
               </li>)
             )}
 
