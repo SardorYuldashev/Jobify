@@ -27,7 +27,6 @@ const Git = () => {
   }, [])
 
   let gitLoad = gitHub.lenght === 0
-  console.log(gitHub);
 
   return (loading ? <h2> </h2> :
     <div className={classes["git"]}>
@@ -37,7 +36,7 @@ const Git = () => {
           <li key={item.id} className={classes["git__list-li"]}>
 
             {/* Informaton */}
-            <div className={classes["git__list-info"]}>
+            <a href={item.html_url} target={'_blank'} className={classes["git__list-info"]}>
               <p className={classes["git__list-title"]}>
                 {item.name}
               </p>
@@ -57,7 +56,7 @@ const Git = () => {
               <p className={classes["git__list-text"]}>
                 Visibility: {item.visibility}
               </p>
-            </div>
+            </a>
 
             {/* Tags */}
             <div className={classes["git__list-tags"]}>

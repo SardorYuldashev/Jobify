@@ -1,10 +1,10 @@
 import axios from 'axios'
 import React, { useState } from 'react'
-import classes from './createprofile.module.scss'
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { loadUserCompleted, loadUserInfo } from '../../store/slices/user';
 import { useDispatch } from 'react-redux';
+import { loadUserCompleted, loadUserInfo } from '../../store/slices/user';
+import classes from './createprofile.module.scss'
 
 
 // status, skills, website?, bio?, location?, company?, githubusername?
