@@ -24,7 +24,6 @@ const EditSocial = () => {
 
   function handleSubmit(e) {
     e.preventDefault()
-
     async function putSocial() {
       try {
         let { data } = await axios.put("/profile/socials", values)
@@ -33,16 +32,9 @@ const EditSocial = () => {
       } catch (error) {
         toast("Tarmoqda xatolik yuz berdi", { type: "error" })
       }
-
-
     }
     putSocial()
-
   }
-
-
-
-
 
   return (
     <div className={classes["editsocial"]}>
@@ -142,13 +134,8 @@ const EditSocial = () => {
                   Save
                 </button>
               </div>
-
             </div>
-          </form>
-
-          <p className={classes["editsocial__content-text"]}>
-            **Not required to write: "https://"
-          </p>
+          </form>          
         </div>
       </div>
     </div>

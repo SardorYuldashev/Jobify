@@ -91,6 +91,21 @@
       &:hover {
         background: rgb(236, 112, 112);
       }
+
+    }
+
+    &-li {
+      margin-top: 5px;
+    }
+
+    &-links {
+      text-decoration: none;
+      color: black;
+      transition: .3s;
+
+      &:hover {
+        color: red;
+      }
     }
   }
 

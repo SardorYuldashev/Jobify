@@ -11,37 +11,35 @@ import { toast } from 'react-toastify'
 import { loadUserCompleted, loadUserEmail, loadUserInfo, loadUserName, loadUserToken } from '../../store/slices/user'
 
 const AfterProfile = () => {
-
-  // Backenddan va storedan user haqida ma'lumot olish
-  let { email } = useSelector(({user}) => user)
-  let { info } = useSelector(({user}) => user)
+  let { email } = useSelector(({ user }) => user)
+  let { info } = useSelector(({ user }) => user)
   let dispatch = useDispatch()
   let navigate = useNavigate()
+
+
 
   const [userInfo, setUserInfo] = useState([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    // let unmounted = false
+    let unmounted = false
     async function getUser() {
       setLoading(true)
       let { data } = await axios.get("/profile/me")
-      // if (unmounted) return
+      if (unmounted) return
       setLoading(false)
       setUserInfo(data)
     }
     getUser()
 
     return () => {
-      // unmounted = true
+      unmounted = true
     }
   }, [])
 
 
   // Profilni o'chirish
-  // let { token } = useSelector(({user}) => user)
-
-  function handleDeleteBtn () {
+  function handleDeleteBtn() {
     let answerFirst = confirm("Rosdan ham profilni o'chirmoqchimisiz?")
     if (!answerFirst) return
     let answerSecond = confirm("Profilni qaytib tiklab bo'lmaydi!")
@@ -49,7 +47,7 @@ const AfterProfile = () => {
     let answerThird = confirm("Qaroringiz qat'iymi? Profilni o'chirasizmi?")
     if (!answerThird) return
 
-    async function deleteProfile () {
+    async function deleteProfile() {
       try {
         let data = await axios.delete("/profile")
         if (data) {
@@ -60,16 +58,15 @@ const AfterProfile = () => {
           dispatch(loadUserEmail(null))
           dispatch(loadUserName(null))
           localStorage.clear()
-          toast("Profil o'chirildi", {type: "info"})
+          toast("Profil o'chirildi", { type: "info" })
           navigate("/")
         }
       } catch (error) {
-        toast(error, {type: "error"})        
+        toast(error, { type: "error" })
       }
     }
     deleteProfile()
   }
-
 
 
 
@@ -167,10 +164,45 @@ const AfterProfile = () => {
                 <ul className={classes["afterProfile__info-list"]}>
 
                   <li className={classes["afterProfile__info-li"]}>
-                    <p className={classes["afterProfile__info-text"]}>
-                      
-                    </p>
+                    {info.social.youtube === "" ? <h2> </h2> :
+                      <a href={info.social.youtube} target={'_blank'} className={classes["afterProfile__info-links"]}>
+                        <i className="fa-brands fa-youtube afterProfile__info-icon"></i> Youtube
+                      </a>
+                    }
                   </li>
+
+                  <li className={classes["afterProfile__info-li"]}>
+                    {info.social.twitter === "" ? <h2> </h2> :
+                      <a href={info.social.twitter} target={'_blank'} className={classes["afterProfile__info-links"]}>
+                        <i className="fa-brands fa-twitter afterProfile__info-icon"></i> Twitter
+                      </a>
+                    }
+                  </li>
+
+                  <li className={classes["afterProfile__info-li"]}>
+                    {info.social.instagram === "" ? <h2> </h2> :
+                      <a href={info.social.instagram} target={'_blank'} className={classes["afterProfile__info-links"]}>
+                        <i className="fa-brands fa-instagram afterProfile__info-icon"></i> Instagram
+                      </a>
+                    }
+                  </li>
+
+                  <li className={classes["afterProfile__info-li"]}>
+                    {info.social.linkedin === "" ? <h2> </h2> :
+                      <a href={info.social.linkedin} target={'_blank'} className={classes["afterProfile__info-links"]}>
+                        <i className="fa-brands fa-linkedin afterProfile__info-icon"></i> Linkedin
+                      </a>
+                    }
+                  </li>
+
+                  <li className={classes["afterProfile__info-li"]}>
+                    {info.social.facebook === "" ? <h2> </h2> :
+                      <a href={info.social.facebook} target={'_blank'} className={classes["afterProfile__info-links"]}>
+                        <i className="fa-brands fa-facebook afterProfile__info-icon"></i> Facebook
+                      </a>
+                    }
+                  </li>
+
                 </ul>
 
               </div>
@@ -250,9 +282,6 @@ const AfterProfile = () => {
             <p className={classes["afterProfile__delete-text"]}>This area is so dangerous. You may delete all your data by accident in here! PLEASE BE CAREFUL!!!</p>
             <button onClick={handleDeleteBtn} className={classes["afterProfile__delete-btn"]}>Delete account</button>
           </div>
-
-
-
 
         </div>
       </div>
