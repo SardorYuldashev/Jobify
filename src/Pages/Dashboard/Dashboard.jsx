@@ -5,14 +5,15 @@ import BeforeProfile from '../../Components/BeforeProfile'
 import classes from './dashboard.module.scss'
 import axios from 'axios'
 import { loadUserEmail, loadUserID, loadUserName } from '../../store/slices/user'
+import { toast } from 'react-toastify'
 
 const Dashboard = () => {  
-  const [userName, setUserName] = useState(null)
   const dispatch = useDispatch()
+  const [udachno, setUdachno] = useState(false)
 
   useEffect(() => {
     (async function getUserName () {
-      let {data} = await axios.get('/auth')
+      let {data} = await axios.get('/auth')      
       if(data) {
         dispatch(loadUserEmail(data.email))
         dispatch(loadUserName(data.name))
@@ -23,25 +24,19 @@ const Dashboard = () => {
       }
     })()
 
-  }, [])
-  
+    async function getFull () {
+      try {
+        let {data} = await axios.get('/profile/me')
+        setUdachno(true)
+        
+      } catch (error) {
+        setUdachno(false)
+        
+      }
+    }
+    getFull()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  }, [udachno])
 
   let { token } = useSelector(({user}) => user)
   let { isCompleted } = useSelector(({user}) => user)
@@ -49,9 +44,7 @@ const Dashboard = () => {
   return (
     <div className={classes["dashboard"]}>
       <div className="container">
-
-        {token && isCompleted ? <AfterProfile /> : <BeforeProfile />}
-
+        {token && udachno && isCompleted ? <AfterProfile /> : <BeforeProfile />}
       </div>
     </div>
   )

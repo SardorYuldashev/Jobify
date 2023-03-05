@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, } from 'react-router-dom'
 import classes from './jobs.module.scss'
-import avatar from '../../assets/avatar.png'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'

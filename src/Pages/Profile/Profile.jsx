@@ -1,20 +1,58 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './profile.module.scss'
 import avatar from '../../assets/avatar.png'
 import Experinces from './../../Components/Experinces';
 import Educations from '../../Components/Educations';
 import Git from './../../Components/Git';
 import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Profile = () => {
   const { id } = useParams()
-  console.log(id);
-
   const navigate = useNavigate()
   const goBack = () => navigate(-1)
 
-  let experiences = !true
-  let educations = !true
+  const [userInfo, setUserInfo] = useState([])
+
+  useEffect(() => {
+
+    (async () => {
+      try {
+        let { data } = await axios.get(`/profile/user/${id}`)
+        if (data) {
+          setUserInfo([data])
+        }
+
+
+
+      } catch (error) {
+        toast(error, { type: "error" })
+      }
+    })()
+  }, [])
+
+  console.log(userInfo[0]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  let experiences = true
+  let educations = true
 
 
   return (
@@ -22,7 +60,7 @@ const Profile = () => {
       <div className="container">
         <div className={classes["profile__content"]}>
 
-        <div className={classes["profile__content-buttons"]}>
+          <div className={classes["profile__content-buttons"]}>
             <button onClick={goBack} className={classes["profile__content-btn"]}>
               Go Back
             </button>
@@ -34,11 +72,14 @@ const Profile = () => {
               User Info
             </p>
 
-            <div className={classes["profile__info-item"]}>
+
+            {/* Dynamic info */}
+            {userInfo.length === 0 ? <h2>Loading</h2> : userInfo.map((item) =>
+              <div key={item._id} className={classes["profile__info-item"]}>
 
                 {/* User info 1 column: Avatar */}
                 <div className={classes["profile__info-imgBox"]}>
-                  <img className={classes["profile__info-img"]} src={avatar} alt="avatar" />
+                  <img className={classes["profile__info-img"]} src={item.user.avatar} alt="Avatar" />
                 </div>
 
                 {/* User info 2 column: Person infi */}
@@ -46,31 +87,31 @@ const Profile = () => {
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Email: <a href="email">example@mail.ru</a>
+                      Email: <a href="email">{item.user.email}</a>
                     </p>
                   </li>
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Status: Looking for new opportunities
+                      Status: {item.status}
                     </p>
                   </li>
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Location: USA
+                      Location: {item.location}
                     </p>
                   </li>
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Bio: Bio
+                      Bio: {item.bio}
                     </p>
                   </li>
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Joined at: 02/03/2023
+                      Joined at: {item.date.slice(0, 10)}
                     </p>
                   </li>
                 </ul>
@@ -80,25 +121,25 @@ const Profile = () => {
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Company: Apple Inc.
+                      Company: {item.company}
                     </p>
                   </li>
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Website: <a href="email">https://apple.com</a>
+                      Website: <a href={item.website}>{item.website}</a>
                     </p>
                   </li>
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Skills: HTML CSS JS
+                      Skills: {item.skills}
                     </p>
                   </li>
                 </ul>
 
                 {/* User info 4 column: Socials */}
-                <ul className={classes["profile__info-list"]}>
+                {/* <ul className={classes["profile__info-list"]}>
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
@@ -111,9 +152,11 @@ const Profile = () => {
                       Instagram
                     </p>
                   </li>
-                </ul>
+                </ul> */}
 
-            </div>
+              </div>
+            )}
+
           </div>
 
           {/* Ish joyini qo'shish */}

@@ -8,7 +8,7 @@ import Git from '../Git'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
-import { loadUserCompleted, loadUserEmail, loadUserInfo, loadUserToken } from '../../store/slices/user'
+import { loadUserCompleted, loadUserEmail, loadUserInfo, loadUserName, loadUserToken } from '../../store/slices/user'
 
 const AfterProfile = () => {
 
@@ -18,22 +18,22 @@ const AfterProfile = () => {
   let dispatch = useDispatch()
   let navigate = useNavigate()
 
-  const [userInfo, setUserInfo] = useState({})
+  const [userInfo, setUserInfo] = useState([])
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
-    let unmounted = false
+    // let unmounted = false
     async function getUser() {
       setLoading(true)
       let { data } = await axios.get("/profile/me")
-      if (unmounted) return
+      // if (unmounted) return
       setLoading(false)
       setUserInfo(data)
     }
     getUser()
 
     return () => {
-      unmounted = true
+      // unmounted = true
     }
   }, [])
 
@@ -58,6 +58,7 @@ const AfterProfile = () => {
           dispatch(loadUserInfo(null))
           dispatch(loadUserCompleted(false))
           dispatch(loadUserEmail(null))
+          dispatch(loadUserName(null))
           localStorage.clear()
           toast("Profil o'chirildi", {type: "info"})
           navigate("/")
@@ -73,18 +74,10 @@ const AfterProfile = () => {
 
 
 
-
-
-
-
-
-
   let experiences = info.experience.length === 0
   let educations = info.education.length === 0
-  // let experiences = true
-  // let educations = true
 
-  return loading ? <h2>Loading</h2> : (
+  return loading && userInfo.length === 0 ? <h2>Loading</h2> : (
     <div className={classes["afterProfile"]}>
       <div className="container">
         <div className={classes["afterProfile__content"]}>

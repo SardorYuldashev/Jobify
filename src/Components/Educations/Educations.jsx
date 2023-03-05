@@ -27,6 +27,7 @@ const Educations = () => {
     getUserInfo()
   }, [render])
 
+
   async function deleteExperince (id) {    
     try {
       let {data} = await axios.delete(`/profile/education/${id}`)
@@ -46,6 +47,11 @@ const Educations = () => {
       }
     }
   }
+
+
+
+
+  
 
   return (
     <div className={classes["educations"]}>

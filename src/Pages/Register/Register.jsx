@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { localTokenKey } from '../../Components/Constants';
-import { loadUserEmail, loadUserToken } from '../../store/slices/user';
+import { loadUserCompleted, loadUserInfo, loadUserToken } from '../../store/slices/user';
 import { useDispatch } from 'react-redux';
 
 const Register = () => {
@@ -48,8 +48,12 @@ const Register = () => {
 
       if (token) {
         localStorage.setItem(localTokenKey, token)
+        localStorage.setItem("isCompleted", false)
+        localStorage.setItem("userInfo", JSON.stringify([]))
         axios.defaults.headers.common["access-token"] = token
         dispatch(loadUserToken(token))
+        dispatch(loadUserCompleted(false))
+        dispatch(loadUserInfo([]))
       }
       
       toast("Siz muvaffaqiyatli ro'yxatdan o'tdingiz!!!", { type: "info" })

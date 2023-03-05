@@ -19,7 +19,7 @@ const Header = () => {
       <div className="container">
         <nav className={classes["header__nav"]}>
 
-          <Link to="/" className={classes["header__nav-logo"]}>Jobify</Link>
+          <Link to={token && !isCompleted ? "/dashboard" : "/" } className={classes["header__nav-logo"]}>Jobify</Link>
 
           {token || isCompleted ? <AfterReg /> :   <BeforeReg />}
 

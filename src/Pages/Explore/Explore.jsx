@@ -8,13 +8,13 @@ import preloader from '../../assets/preloader.gif'
 
 const Explore = () => {
   // Profil to'liq ochmagan bo'sa dashboardga o'tkazish
-  let navigate = useNavigate()
-  let { isCompleted } = useSelector(({ user }) => user)
-  let { token } = useSelector(({ user }) => user)
-  useEffect(() => {
-    if (isCompleted === false && !token) navigate("/")
-    if (isCompleted === false && token) navigate("/dashboard")
-  }, [isCompleted])
+  // let navigate = useNavigate()
+  // let { isCompleted } = useSelector(({ user }) => user)
+  // let { token } = useSelector(({ user }) => user)
+  // useEffect(() => {
+  //   if (isCompleted === false && !token) navigate("/")
+  //   if (isCompleted === false && token) navigate("/dashboard")
+  // }, [isCompleted])
 
 
   // Job list olib kelish ===================================================
