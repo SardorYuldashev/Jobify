@@ -16,8 +16,7 @@ const Profile = () => {
   const [userInfo, setUserInfo] = useState([])
   const [experience, setExperience] = useState([])
   const [education, setEducation] = useState([])
-  console.log(userInfo);
-
+  const [gitHubList, setGitHubList] = useState([])
 
   useEffect(() => {
 
@@ -25,6 +24,9 @@ const Profile = () => {
       try {
         let { data } = await axios.get(`/profile/user/${id}`)
         if (data) {
+
+          let { data: gitHub } = await axios.get(`/profile/github/${data.githubusername}`)
+          setGitHubList(gitHub)
           setUserInfo([data])
           setExperience(data.experience)
           setEducation(data.education)
@@ -53,7 +55,7 @@ const Profile = () => {
           {/* User haqida ma'lumotlar */}
           <div className={classes["profile__info"]}>
             <p className={classes["profile__content-title"]}>
-              User Info
+              {userInfo[0]?.user.name} Info
             </p>
 
 
@@ -247,7 +249,7 @@ const Profile = () => {
                     <ul className={classes["profile__educations__list"]}>
 
                       {education.map((item) =>
-                        <li className={classes["profile__educations__list-li"]}>
+                        <li key={item._id} className={classes["profile__educations__list-li"]}>
                           <div className={classes["profile__educations__list-info"]}>
 
                             <h2 className={classes["profile__educations__list-title"]}>
@@ -283,17 +285,68 @@ const Profile = () => {
           </div>
 
           {/* Git Repos */}
-          <div className={classes["profile__git"]}>
-            <p className={classes["profile__content-title"]}>
-              Recent Git Repos
-            </p>
+          {gitHubList.length > 0 ?
+            <div className={classes["profile__git"]}>
+              <p className={classes["profile__content-title"]}>
+                Recent Git Repos
+              </p>
 
-            <Git />
-          </div>
+              {gitHubList.length > 0 ? gitHubList?.map((item) => (
+                <li key={item.id} className={classes["git__list-li"]}>
 
 
+                  <a href={item.html_url} target={'_blank'} className={classes["git__list-info"]}>
+                    <p className={classes["git__list-title"]}>
+                      {item.name}
+                    </p>
+
+                    <p className={classes["git__list-text"]}>
+                      Created at: {item.created_at.slice(0, 10)}
+                    </p>
+
+                    <p className={classes["git__list-text"]}>
+                      Main language: {item.language}
+                    </p>
+
+                    <p className={classes["git__list-text"]}>
+                      Main branch: {item.default_branch}
+                    </p>
+
+                    <p className={classes["git__list-text"]}>
+                      Visibility: {item.visibility}
+                    </p>
+                  </a>
 
 
+                  <div className={classes["git__list-tags"]}>
+
+                    <p className={classes["git__list-tag"]}>
+                      Watchers: <span>{item.size}</span>
+                    </p>
+
+                    <p className={classes["git__list-tag"]}>
+                      Issues: <span>{item.open_issues}</span>
+                    </p>
+
+                    <p className={classes["git__list-tag"]}>
+                      Forks: <span>{item.forks}</span>
+                    </p>
+
+                    <p className={classes["git__list-tag"]}>
+                      Stars: <span>{item.stargazers_count}</span>
+                    </p>
+
+                    <p className={classes["git__list-tag"]}>
+                      Pages: <span>{item.watchers}</span>
+                    </p>
+                  </div>
+                </li>
+              )) :
+                <h2> </h2>
+              }
+            </div> :
+            <h2> </h2>
+          }
         </div>
       </div>
     </div>
