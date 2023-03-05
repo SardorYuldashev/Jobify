@@ -6,6 +6,9 @@ import { toast } from 'react-toastify';
 import { loadUserCompleted, loadUserInfo } from '../../store/slices/user';
 import { useDispatch } from 'react-redux';
 
+
+// status, skills, website?, bio?, location?, company?, githubusername?
+
 const CreateProfile = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -16,7 +19,7 @@ const CreateProfile = () => {
     website: "",
     skills: "",
     location: "",
-    github: "",
+    githubusername: "",
     bio: "",
   })
 
@@ -31,7 +34,7 @@ const CreateProfile = () => {
       return toast("Statusni tanlang", { type: "error" })
     }
     if (!values.skills) {
-      return toast("Skkills bo'lini to'dirinf", { type: "error" })
+      return toast("Skkills bo'limini to'diring", { type: "error" })
     }
 
     try {
@@ -178,14 +181,14 @@ const CreateProfile = () => {
 
                   <input className={classes["createProfile__content-input"]}
                     type="text"
-                    name='github'
-                    id='github'
+                    name='githubusername'
+                    id='githubusername'
                     placeholder='apple'
-                    value={values.github}
+                    value={values.githubusername}
                     onChange={handleInpChange} />
 
                   <p className={classes["createProfile__content-text"]}>
-                    You need to specify only username (without https://github.com)
+                    You need to specify only username (without https://github.com/)
                   </p>
                 </div>
               </div>

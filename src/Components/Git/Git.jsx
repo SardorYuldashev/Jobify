@@ -1,140 +1,89 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './git.module.scss'
 import { useSelector } from 'react-redux';
 
 const Git = () => {
 
   // Keyin yana ko'rib chiqish kerak==================================
-  // const userName = localStorage.getItem("userName")
-  // console.log(userName);
+  const { info } = useSelector(({ user }) => user)
+  let gitUserName = info.githubusername
 
-  // const [gitHub, setGitHub] = useState([])
-  // async function getGitHub () {
-  //   let { data } = await axios.get(`/profile/github/${userName}`)
-  //   console.log("GitHub componentdan javob", data);
-  // }
-  // getGitHub()
+  const [gitHub, setGitHub] = useState([])
+  const [loading, setLoading] = useState(false)
 
+  useEffect(() => {
+    async function getGitHub() {
+      try {
+        setLoading(true)
+        let { data } = await axios.get(`/profile/github/${gitUserName}`)
+        setGitHub(data)
+        setLoading(false)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getGitHub()
+  }, [])
 
+  let gitLoad = gitHub.lenght === 0
+  console.log(gitHub);
 
-
-
-
-
-
-
-
-
-
-  return (
+  return (loading ? <h2> </h2> :
     <div className={classes["git"]}>
       <ul className={classes["git__list"]}>
 
-        <li className={classes["git__list-li"]}>
+        {gitHub.map((item) =>
+          <li key={item.id} className={classes["git__list-li"]}>
 
-          {/* Informaton */}
-          <a href='!#' className={classes["git__list-info"]}>
-            <p className={classes["git__list-title"]}>
-              MaterialX
-            </p>
+            {/* Informaton */}
+            <div className={classes["git__list-info"]}>
+              <p className={classes["git__list-title"]}>
+                {item.name}
+              </p>
 
-            <p className={classes["git__list-text"]}>
-              Created at: 03/01/1994
-            </p>
+              <p className={classes["git__list-text"]}>
+                Created at: {item.created_at.slice(0, 10)}
+              </p>
 
-            <p className={classes["git__list-text"]}>
-              Main language:
-            </p>
+              <p className={classes["git__list-text"]}>
+                Main language: {item.language}
+              </p>
 
-            <p className={classes["git__list-text"]}>
-              Main branch: main
-            </p>
+              <p className={classes["git__list-text"]}>
+                Main branch: {item.default_branch}
+              </p>
 
-            <p className={classes["git__list-text"]}>
-              Visibility: public
-            </p>
-          </a>
+              <p className={classes["git__list-text"]}>
+                Visibility: {item.visibility}
+              </p>
+            </div>
 
+            {/* Tags */}
+            <div className={classes["git__list-tags"]}>
 
+              <p className={classes["git__list-tag"]}>
+                Watchers: <span>{item.size}</span>
+              </p>
 
-          {/* Tags */}
-          <div className={classes["git__list-tags"]}>
+              <p className={classes["git__list-tag"]}>
+                Issues: <span>{item.open_issues}</span>
+              </p>
 
-            <p className={classes["git__list-tag"]}>
-              Watchers: <span>3</span>
-            </p>
+              <p className={classes["git__list-tag"]}>
+                Forks: <span>{item.forks}</span>
+              </p>
 
-            <p className={classes["git__list-tag"]}>
-              Issues: <span>0</span>
-            </p>
+              <p className={classes["git__list-tag"]}>
+                Stars: <span>{item.stargazers_count}</span>
+              </p>
 
-            <p className={classes["git__list-tag"]}>
-              Forks: <span>0</span>
-            </p>
-
-            <p className={classes["git__list-tag"]}>
-              Stars: <span>3</span>
-            </p>
-
-            <p className={classes["git__list-tag"]}>
-              Pages: <span>x</span>
-            </p>
-          </div>
-        </li>
-
-        <li className={classes["git__list-li"]}>
-
-          {/* Informaton */}
-          <a href='!#' className={classes["git__list-info"]}>
-            <p className={classes["git__list-title"]}>
-              MaterialX
-            </p>
-
-            <p className={classes["git__list-text"]}>
-              Created at: 03/01/1994
-            </p>
-
-            <p className={classes["git__list-text"]}>
-              Main language:
-            </p>
-
-            <p className={classes["git__list-text"]}>
-              Main branch: main
-            </p>
-
-            <p className={classes["git__list-text"]}>
-              Visibility: public
-            </p>
-          </a>
-
-
-
-          {/* Tags */}
-          <div className={classes["git__list-tags"]}>
-
-            <p className={classes["git__list-tag"]}>
-              Watchers: <span>3</span>
-            </p>
-
-            <p className={classes["git__list-tag"]}>
-              Issues: <span>0</span>
-            </p>
-
-            <p className={classes["git__list-tag"]}>
-              Forks: <span>0</span>
-            </p>
-
-            <p className={classes["git__list-tag"]}>
-              Stars: <span>3</span>
-            </p>
-
-            <p className={classes["git__list-tag"]}>
-              Pages: <span>x</span>
-            </p>
-          </div>
-        </li>
-
+              <p className={classes["git__list-tag"]}>
+                Pages: <span>{item.watchers}</span>
+              </p>
+            </div>
+          </li>
+        )}
       </ul>
     </div>
   )
