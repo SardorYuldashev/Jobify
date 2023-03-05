@@ -14,6 +14,9 @@ const Profile = () => {
   const goBack = () => navigate(-1)
 
   const [userInfo, setUserInfo] = useState([])
+  const [experience, setExperience] = useState([])
+  const [education, setEducation] = useState([])
+
 
   useEffect(() => {
 
@@ -22,37 +25,18 @@ const Profile = () => {
         let { data } = await axios.get(`/profile/user/${id}`)
         if (data) {
           setUserInfo([data])
+          setExperience(data.experience)
+          setEducation(data.education)
+          console.log(data);
         }
-
-
-
       } catch (error) {
         toast(error, { type: "error" })
       }
     })()
   }, [])
 
-  console.log(userInfo[0]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  let experiences = true
-  let educations = true
+  let expLoad = experience.length === 0
+  let educLoad = education.length === 0
 
 
   return (
@@ -166,7 +150,7 @@ const Profile = () => {
             </p>
 
             <div className={classes["profile__experiences-item"]}>
-              {experiences ?
+              {expLoad ?
                 (
                   <div className={classes["profile__experiences-not"]}>
                     <p className={classes["profile__experiences-not-title"]}>
@@ -175,7 +159,42 @@ const Profile = () => {
                   </div>
                 ) :
                 (
-                  <Experinces />
+                  // Shu joyidan pasti ko'rinishi kerak                  
+                  <div className={classes["profile__experiences"]}>
+                    <ul className={classes["profile__experiences__list"]}>
+                      {experience.map((item) =>
+                        <li key={item._id} className={classes["profile__experiences__list-li"]}>
+                          <div className={classes["profile__experiences__list-info"]}>
+
+                            <h2 className={classes["profile__experiences__list-title"]}>
+                              <span className={classes["profile__experiences__list-status"]}>{item.title}</span>
+                              <span> at </span>
+                              <span className={classes["profile__experiences__list-company"]}>{item.company}</span>
+                            </h2>
+
+                            <p className={classes["profile__experiences__list-text"]}>
+                              <span>From:</span> {item.from.slice(0, 10)}
+                            </p>
+
+                            <p className={classes["profile__experiences__list-text"]}>
+                              <span>Until:</span> {(!item.to) ? "Now" : item.to.slice(0, 10)}
+                            </p>
+
+                            <p className={classes["profile__experiences__list-text"]}>
+                              <span>Location:</span> {item.location}
+                            </p>
+
+                            <p className={classes["profile__experiences__list-text"]}>
+                              <span>Description:</span> {item.description}
+                            </p>
+                          </div>
+                        </li>)
+                      }
+
+
+
+                    </ul>
+                  </div>
                 )}
             </div>
           </div>
@@ -187,7 +206,7 @@ const Profile = () => {
             </p>
 
             <div className={classes["profile__educations-item"]}>
-              {educations ?
+              {educLoad ?
                 (
                   <div className={classes["profile__educations-not"]}>
                     <p className={classes["profile__educations-not-title"]}>
@@ -196,7 +215,40 @@ const Profile = () => {
                   </div>
                 ) :
                 (
-                  <Educations />
+                  <div className={classes["profile__educations"]}>
+                    <ul className={classes["profile__educations__list"]}>
+
+                      {education.map((item) =>
+                        <li className={classes["profile__educations__list-li"]}>
+                          <div className={classes["profile__educations__list-info"]}>
+
+                            <h2 className={classes["profile__educations__list-title"]}>
+                              <span className={classes["profile__educations__list-status"]}>{item.degree}</span>
+                              <span> at </span>
+                              <span className={classes["profile__educations__list-company"]}>{item.school}</span>
+                            </h2>
+
+                            <p className={classes["profile__educations__list-text"]}>
+                              <span>From:</span> {item.from.slice(0, 10)}
+                            </p>
+
+                            <p className={classes["profile__educations__list-text"]}>
+                              <span>Until:</span> {(!item.to) ? "Now" : item.to.slice(0, 10)}
+                            </p>
+
+                            <p className={classes["profile__educations__list-text"]}>
+                              <span>Location:</span> {item.fieldofstudy}
+                            </p>
+
+                            <p className={classes["profile__educations__list-text"]}>
+                              <span>Description:</span> {item.description}
+                            </p>
+                          </div>
+                        </li>)
+                      }
+
+                    </ul>
+                  </div>
                 )}
             </div>
 

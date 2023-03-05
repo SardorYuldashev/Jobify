@@ -6,12 +6,13 @@ import { useSelector } from 'react-redux';
 const Git = () => {
 
   // Keyin yana ko'rib chiqish kerak==================================
-  // let { userName } = useSelector(({ user }) => user)
+  // const userName = localStorage.getItem("userName")
+  // console.log(userName);
 
   // const [gitHub, setGitHub] = useState([])
   // async function getGitHub () {
-  //   let { data } = await axios.get(`/profile/github/${apple}`)
-  //   console.log(data);
+  //   let { data } = await axios.get(`/profile/github/${userName}`)
+  //   console.log("GitHub componentdan javob", data);
   // }
   // getGitHub()
 
