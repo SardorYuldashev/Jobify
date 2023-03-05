@@ -16,6 +16,7 @@ const Profile = () => {
   const [userInfo, setUserInfo] = useState([])
   const [experience, setExperience] = useState([])
   const [education, setEducation] = useState([])
+  console.log(userInfo);
 
 
   useEffect(() => {
@@ -27,7 +28,6 @@ const Profile = () => {
           setUserInfo([data])
           setExperience(data.experience)
           setEducation(data.education)
-          console.log(data);
         }
       } catch (error) {
         toast(error, { type: "error" })
@@ -71,31 +71,31 @@ const Profile = () => {
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Email: <a href="email">{item.user.email}</a>
+                      <span>Email:</span> <a href="email">{item.user.email}</a>
                     </p>
                   </li>
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Status: {item.status}
+                      <span>Status:</span> {item.status}
                     </p>
                   </li>
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Location: {item.location}
+                      <span>Location:</span> {item.location}
                     </p>
                   </li>
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Bio: {item.bio}
+                      <span>Bio:</span> {item.bio}
                     </p>
                   </li>
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Joined at: {item.date.slice(0, 10)}
+                      <span>Joined at:</span> {item.date.slice(0, 10)}
                     </p>
                   </li>
                 </ul>
@@ -105,38 +105,66 @@ const Profile = () => {
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Company: {item.company}
+                      <span>Company:</span> {item.company}
                     </p>
                   </li>
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Website: <a href={item.website}>{item.website}</a>
+                      <span>Website:</span> <a href={item.website}>{item.website}</a>
                     </p>
                   </li>
 
                   <li className={classes["profile__info-li"]}>
                     <p className={classes["profile__info-text"]}>
-                      Skills: {item.skills}
+                      <span>Skills:</span> {item.skills}
                     </p>
                   </li>
                 </ul>
 
                 {/* User info 4 column: Socials */}
-                {/* <ul className={classes["profile__info-list"]}>
+                <ul className={classes["profile__info-list"]}>
 
                   <li className={classes["profile__info-li"]}>
-                    <p className={classes["profile__info-text"]}>
-                      Facebook
-                    </p>
+                    {item?.social?.youtube === "" ? <h2> </h2> :
+                      <a href={item?.social?.youtube} target={'_blank'} className={classes["profile__info-links"]}>
+                        <i className="fa-brands fa-youtube profile__info-icon"></i> Youtube
+                      </a>
+                    }
                   </li>
 
                   <li className={classes["profile__info-li"]}>
-                    <p className={classes["profile__info-text"]}>
-                      Instagram
-                    </p>
+                    {item?.social?.twitter === "" ? <h2> </h2> :
+                      <a href={item?.social?.twitter} target={'_blank'} className={classes["profile__info-links"]}>
+                        <i className="fa-brands fa-twitter profile__info-icon"></i> Twitter
+                      </a>
+                    }
                   </li>
-                </ul> */}
+
+                  <li className={classes["profile__info-li"]}>
+                    {item?.social?.instagram === "" ? <h2> </h2> :
+                      <a href={item?.social?.instagram} target={'_blank'} className={classes["profile__info-links"]}>
+                        <i className="fa-brands fa-instagram profile__info-icon"></i> Instagram
+                      </a>
+                    }
+                  </li>
+
+                  <li className={classes["profile__info-li"]}>
+                    {item?.social?.linkedin === "" ? <h2> </h2> :
+                      <a href={item?.social?.linkedin} target={'_blank'} className={classes["profile__info-links"]}>
+                        <i className="fa-brands fa-linkedin profile__info-icon"></i> Linkedin
+                      </a>
+                    }
+                  </li>
+
+                  <li className={classes["profile__info-li"]}>
+                    {item?.social?.facebook === "" ? <h2> </h2> :
+                      <a href={item?.social?.facebook} target={'_blank'} className={classes["profile__info-links"]}>
+                        <i className="fa-brands fa-facebook profile__info-icon"></i> Facebook
+                      </a>
+                    }
+                  </li>
+                </ul>
 
               </div>
             )}
