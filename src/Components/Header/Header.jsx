@@ -3,15 +3,19 @@ import { Link } from 'react-router-dom'
 import AfterReg from '../AfterReg/AfterReg'
 import BeforeReg from '../BeforeReg/BeforeReg'
 import classes from "./header.module.scss"
-import { localTokenKey } from './../Constants/index';
 import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 const Header = () => {
 
-  // let token = localStorage.getItem(localTokenKey)
+  const { t, i18n: { language, changeLanguage } } = useTranslation()
 
-  let { token } = useSelector(({user}) => user)
-  let { isCompleted } = useSelector(({user}) => user) 
+  function handleChangeLng () {
+    changeLanguage(language === "EN" ? "UZ" : "EN")
+  }
+
+  let { token } = useSelector(({ user }) => user)
+  let { isCompleted } = useSelector(({ user }) => user)
 
 
   return (
@@ -19,9 +23,17 @@ const Header = () => {
       <div className="container">
         <nav className={classes["header__nav"]}>
 
-          <Link to={token && !isCompleted ? "/dashboard" : "/" } className={classes["header__nav-logo"]}>Jobify</Link>
+          <Link to={token && !isCompleted ? "/dashboard" : "/"} className={classes["header__nav-logo"]}>Jobify</Link>
 
-          {token || isCompleted ? <AfterReg /> :   <BeforeReg />}
+
+          <div className={classes["header__nav-buttons"]}>
+            <button onClick={handleChangeLng} className={classes["header__nav-btn"]}>
+              { language === "EN" ? "UZ" : "EN"}
+            </button>
+
+
+            {token || isCompleted ? <AfterReg /> : <BeforeReg />}
+          </div>
 
         </nav>
       </div>

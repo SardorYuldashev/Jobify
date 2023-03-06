@@ -22,6 +22,9 @@ if (token) axios.defaults.headers.common["access-token"] = token
 import { Provider } from 'react-redux'
 import store from './store';
 
+//i18next
+import "./i18n"
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Router>
     <Provider store={store}>

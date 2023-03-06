@@ -1,11 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import classes from './myjobs.module.scss'
 
 const MyJobs = () => {
+  const {t} = useTranslation()
   // Profil to'liq bo'masa dashboarda otish
   let navigate = useNavigate()
   let { isCompleted } = useSelector(({ user }) => user)
@@ -39,7 +41,6 @@ const MyJobs = () => {
   // Print my jobs
   const [jobs, setJobs] = useState([])
   const [loading, setLoading] = useState(false)
-
   useEffect(() => {
     (async function getJobs() {
       try {
@@ -60,7 +61,6 @@ const MyJobs = () => {
       console.log(data);
       setRefresh(!refresh)
       toast("E'lon o'chirildi", { type: "info" })
-
     } catch (error) {
       toast(error, { type: "error" })
     }
@@ -71,10 +71,10 @@ const MyJobs = () => {
       <div className="container">
         <div className={classes["myjobs__content"]}>
           <p className={classes["myjobs__content-title"]}>
-            Do you want to create a job opportunities?
+            {t("opportunites")}
           </p>
           <p className={classes["myjobs__content-text"]}>
-            Enter necessary details and submit
+            {t("necessary")}
           </p>
 
           <form onSubmit={createNewJob} className={classes["myjobs__content-form"]}>
@@ -82,13 +82,13 @@ const MyJobs = () => {
             <div className={classes["myjobs__content-formbox"]}>
               <label className={classes["myjobs__content-label"]}
                 htmlFor="title" >
-                Job title
+                {t("jobTitle")}
               </label>
               <input className={classes["myjobs__content-input"]}
                 type="text"
                 name='title'
                 id='title'
-                placeholder='Senior React developer'
+                placeholder={t("senior")}
                 value={values.title}
                 onChange={handleInpChange} />
             </div>
@@ -96,28 +96,28 @@ const MyJobs = () => {
             <div className={classes["myjobs__content-formbox"]}>
               <label className={classes["myjobs__content-label"]}
                 htmlFor="description">
-                Job description
+                {t("jobDescripton")}
               </label>
               <textarea className={classes["myjobs__content-input"]}
                 name="description"
                 id="description"
                 cols="30"
                 rows="10"
-                placeholder='Tell a little bit about job requirements and benefits...'
+                placeholder={t("requirements")}
                 value={values.description}
                 onChange={handleInpChange}>
               </textarea>
             </div>
 
-            <button type='submit' className={classes["myjobs__content-btn"]}>Submit</button>
+            <button type='submit' className={classes["myjobs__content-btn"]}>{t("submit")}</button>
           </form>
 
           <p className={classes["myjobs__content-title"]}>
-            Jobs you posted
+            {t("youPosted")}
           </p>
 
           <ul className={classes["myjobs__content-list"]}>
-            {loading ? <h2>Loading, please wait...</h2> : (
+            {loading ? <h2>{t("loading")}</h2> : (
               jobs?.map((item) => <li key={item._id} className={classes["myjobs__content-li"]}>
                 <Link to={`/jobs/${item._id}`} className={classes["myjobs__content-info"]}>
                   <h2 className={classes["myjobs__content-theme"]}>{item.title}</h2>
@@ -127,12 +127,12 @@ const MyJobs = () => {
                 <div className={classes["myjobs__content-buttons"]}>
 
                   <div className={classes["myjobs__content-left"]}>
-                    <button className={classes["myjobs__content-btn"]}>Likes <span>{item.likes.length}</span></button>
-                    <button className={classes["myjobs__content-btn"]}>Applicants <span>{item.applicants.length}</span></button>
+                    <button className={classes["myjobs__content-btn"]}>{t("likes")} <span>{item.likes.length}</span></button>
+                    <button className={classes["myjobs__content-btn"]}>{t("applicants")} <span>{item.applicants.length}</span></button>
                   </div>
 
                   <div className={classes["myjobs__content-right"]}>
-                    <button onClick={() => { deleteJob(item._id) }} className={classes["myjobs__content-delete"]}>Delete</button>
+                    <button onClick={() => { deleteJob(item._id) }} className={classes["myjobs__content-delete"]}>{t("delete")}</button>
                   </div>
                 </div>
               </li>)

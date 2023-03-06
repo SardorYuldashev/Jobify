@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import classes from './profile.module.scss'
-import avatar from '../../assets/avatar.png'
-import Experinces from './../../Components/Experinces';
-import Educations from '../../Components/Educations';
-import Git from './../../Components/Git';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const Profile = () => {
+  const { t } = useTranslation()
   const { id } = useParams()
   const navigate = useNavigate()
   const goBack = () => navigate(-1)
@@ -19,26 +17,22 @@ const Profile = () => {
   const [gitHubList, setGitHubList] = useState([])
 
   useEffect(() => {
-
     (async () => {
       try {
         let { data } = await axios.get(`/profile/user/${id}`)
         if (data) {
-
           try {
             let { data: gitHub } = await axios.get(`/profile/github/${data.githubusername}`)
             setGitHubList(gitHub)
           } catch (error) {
-            
+            console.log(error);
           }
-
-          
           setUserInfo([data])
           setExperience(data.experience)
           setEducation(data.education)
         }
       } catch (error) {
-        toast("Profil to'liq ro'yxatdan o'tmagan yoki o'chirib tashlangan", {type: "error"})
+        toast("Profil to'liq ro'yxatdan o'tmagan yoki o'chirib tashlangan", { type: "error" })
         navigate("/explore")
       }
     })()
@@ -47,7 +41,6 @@ const Profile = () => {
   let expLoad = experience.length === 0
   let educLoad = education.length === 0
 
-
   return (
     <div className={classes["profile"]}>
       <div className="container">
@@ -55,19 +48,18 @@ const Profile = () => {
 
           <div className={classes["profile__content-buttons"]}>
             <button onClick={goBack} className={classes["profile__content-btn"]}>
-              Go Back
+              {t("goBack")}
             </button>
           </div>
 
           {/* User haqida ma'lumotlar */}
           <div className={classes["profile__info"]}>
             <p className={classes["profile__content-title"]}>
-              {userInfo[0]?.user.name} Info
+              {userInfo[0]?.user.name} {t("infoS")}
             </p>
 
-
             {/* Dynamic info */}
-            {userInfo.length === 0 ? <h2>Loading</h2> : userInfo.map((item) =>
+            {userInfo.length === 0 ? <h2>{t("loading")}</h2> : userInfo.map((item) =>
               <div key={item._id} className={classes["profile__info-item"]}>
 
                 {/* User info 1 column: Avatar */}
@@ -183,7 +175,7 @@ const Profile = () => {
           {/* Ish joyini qo'shish */}
           <div className={classes["profile__experiences"]}>
             <p className={classes["profile__content-title"]}>
-              Experiences
+              {t("experience")}
             </p>
 
             <div className={classes["profile__experiences-item"]}>
@@ -191,7 +183,7 @@ const Profile = () => {
                 (
                   <div className={classes["profile__experiences-not"]}>
                     <p className={classes["profile__experiences-not-title"]}>
-                      No Experience Added.
+                      {t("noExperinces")}
                     </p>
                   </div>
                 ) :
@@ -205,24 +197,24 @@ const Profile = () => {
 
                             <h2 className={classes["profile__experiences__list-title"]}>
                               <span className={classes["profile__experiences__list-status"]}>{item.title}</span>
-                              <span> at </span>
+                              <span> {t("at")} </span>
                               <span className={classes["profile__experiences__list-company"]}>{item.company}</span>
                             </h2>
 
                             <p className={classes["profile__experiences__list-text"]}>
-                              <span>From:</span> {item.from.slice(0, 10)}
+                              <span>{t("from")}:</span> {item.from.slice(0, 10)}
                             </p>
 
                             <p className={classes["profile__experiences__list-text"]}>
-                              <span>Until:</span> {(!item.to) ? "Now" : item.to.slice(0, 10)}
+                              <span>{t("until")}:</span> {(!item.to) ? "Now" : item.to.slice(0, 10)}
                             </p>
 
                             <p className={classes["profile__experiences__list-text"]}>
-                              <span>Location:</span> {item.location}
+                              <span>{t("location")}:</span> {item.location}
                             </p>
 
                             <p className={classes["profile__experiences__list-text"]}>
-                              <span>Description:</span> {item.description}
+                              <span>{t("description")}:</span> {item.description}
                             </p>
                           </div>
                         </li>)
@@ -239,7 +231,7 @@ const Profile = () => {
           {/* O'qish joyini qo'shish */}
           <div className={classes["profile__educations"]}>
             <p className={classes["profile__content-title"]}>
-              Educations
+              {t("educations")}
             </p>
 
             <div className={classes["profile__educations-item"]}>
@@ -247,7 +239,7 @@ const Profile = () => {
                 (
                   <div className={classes["profile__educations-not"]}>
                     <p className={classes["profile__educations-not-title"]}>
-                      No Education Added.
+                      {t("noEducation")}
                     </p>
                   </div>
                 ) :
@@ -261,24 +253,24 @@ const Profile = () => {
 
                             <h2 className={classes["profile__educations__list-title"]}>
                               <span className={classes["profile__educations__list-status"]}>{item.degree}</span>
-                              <span> at </span>
+                              <span> {t("at")} </span>
                               <span className={classes["profile__educations__list-company"]}>{item.school}</span>
                             </h2>
 
                             <p className={classes["profile__educations__list-text"]}>
-                              <span>From:</span> {item.from.slice(0, 10)}
+                              <span>{t("from")}:</span> {item.from.slice(0, 10)}
                             </p>
 
                             <p className={classes["profile__educations__list-text"]}>
-                              <span>Until:</span> {(!item.to) ? "Now" : item.to.slice(0, 10)}
+                              <span>{t("until")}:</span> {(!item.to) ? "Now" : item.to.slice(0, 10)}
                             </p>
 
                             <p className={classes["profile__educations__list-text"]}>
-                              <span>Location:</span> {item.fieldofstudy}
+                              <span>{t("location")}:</span> {item.fieldofstudy}
                             </p>
 
                             <p className={classes["profile__educations__list-text"]}>
-                              <span>Description:</span> {item.description}
+                              <span>{t("description")}:</span> {item.description}
                             </p>
                           </div>
                         </li>)
@@ -295,7 +287,7 @@ const Profile = () => {
           {gitHubList.length > 0 ?
             <div className={classes["profile__git"]}>
               <p className={classes["profile__content-title"]}>
-                Recent Git Repos
+                {t("recentGitRepos")}
               </p>
 
               {gitHubList[0] > 0 ? gitHubList?.map((item) => (
@@ -308,22 +300,21 @@ const Profile = () => {
                     </p>
 
                     <p className={classes["git__list-text"]}>
-                      Created at: {item.created_at.slice(0, 10)}
+                      {t("createdAt")}: {item.created_at.slice(0, 10)}
                     </p>
 
                     <p className={classes["git__list-text"]}>
-                      Main language: {item.language}
+                      {t("mainLanguage")}: {item.language}
                     </p>
 
                     <p className={classes["git__list-text"]}>
-                      Main branch: {item.default_branch}
+                      {t("mainBranch")}: {item.default_branch}
                     </p>
 
                     <p className={classes["git__list-text"]}>
-                      Visibility: {item.visibility}
+                      {t("visibility")}: {item.visibility}
                     </p>
                   </a>
-
 
                   <div className={classes["git__list-tags"]}>
 

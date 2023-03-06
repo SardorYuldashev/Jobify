@@ -6,12 +6,12 @@ import axios from 'axios';
 import { localTokenKey } from '../../Components/Constants';
 import { loadUserCompleted, loadUserInfo, loadUserToken } from '../../store/slices/user';
 import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const Register = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-
-
+  const {t} = useTranslation()
 
   const [values, setValues] = useState({
     name: "",
@@ -66,7 +66,6 @@ const Register = () => {
           toast(`${err.param} ${err.msg}`, { type: "error" }))
       }
     }
-
   }
 
   return (
@@ -76,7 +75,7 @@ const Register = () => {
           <div className={classes["register__content-wrapper"]}>
 
             <h2 className={classes["register__content-title"]}>
-              Register
+              {t("register")}
             </h2>
 
             <form onSubmit={handleRegister} className={classes["register__content-form"]}>
@@ -84,7 +83,7 @@ const Register = () => {
               <div className={classes["register__content-formBox"]}>
                 <label className={classes["register__content-label"]}
                   htmlFor="name">
-                  Your name
+                  {t("yourName")}
                 </label>
                 <input className={classes["register__content-input"]}
                   type="text"
@@ -99,7 +98,7 @@ const Register = () => {
               <div className={classes["register__content-formBox"]}>
                 <label className={classes["register__content-label"]}
                   htmlFor="email">
-                  Your email
+                  {t("yourEmail")}
                 </label>
                 <input className={classes["register__content-input"]}
                   type="email"
@@ -114,7 +113,7 @@ const Register = () => {
               <div className={classes["register__content-formBox"]}>
                 <label className={classes["register__content-label"]}
                   htmlFor="password">
-                  Your password
+                  {t("yourPassword")}
                 </label>
                 <input className={classes["register__content-input"]}
                   type="password"
@@ -129,7 +128,7 @@ const Register = () => {
               <div className={classes["register__content-formBox"]}>
                 <label className={classes["register__content-label"]}
                   htmlFor="confirmPassword">
-                  Confirm password
+                  {t("confirmPassword")}
                 </label>
                 <input className={classes["register__content-input"]}
                   type="password"
@@ -141,17 +140,17 @@ const Register = () => {
               </div>
 
               <button className={classes["register__content-btn"]}>
-                Register
+                {t("register")}
               </button>
 
             </form>
 
             <span className={classes["register__content-text"]}>
-              Already have an account?
+              {t("alreadyAccount")}
             </span>
 
             <Link to="/login" className={classes["register__content-link"]}>
-              Login
+              {t("login")}
             </Link>
           </div>
         </div>

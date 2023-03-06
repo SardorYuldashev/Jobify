@@ -93,6 +93,7 @@
     }
 
     &-btn {
+      width: 200px;
       padding: 8px 40px;
       border: none;
       transition: .3s;
@@ -116,7 +117,8 @@
     }
 
     &-delete {
-      padding: 8px 60px;
+      width: 200px;
+      padding: 8px 40px;
       border: none;
       transition: .3s;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

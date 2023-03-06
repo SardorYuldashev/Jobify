@@ -8,6 +8,10 @@
       font-size: 30px;
     }
 
+    &-loading {
+      text-align: left;
+    }
+
     &-list {
       margin-top: 20px;
       width: 100%;
@@ -49,6 +53,10 @@
       font-size: 20px;
     }
 
+    &-by {
+      font-weight: bold;
+    }
+
     &-buttons {
       display: flex;
       align-items: center;
@@ -62,6 +70,7 @@
     }
 
     &-btn {
+      width: 200px;
       padding: 8px 40px;
       border: none;
       transition: .3s;
@@ -89,7 +98,8 @@
     }
 
     &-apply {
-      padding: 8px 60px;
+      width: 200px;
+      padding: 8px 40px;
       border: none;
       transition: .3s;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

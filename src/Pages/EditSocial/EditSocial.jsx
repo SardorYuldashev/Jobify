@@ -4,8 +4,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import classes from './editsocial.module.scss'
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next'
 
 const EditSocial = () => {
+  const {t} = useTranslation()
   const navigate = useNavigate()
   let { info } = useSelector(({ user }) => user)
   let socialLinks = info.social
@@ -43,12 +45,12 @@ const EditSocial = () => {
 
           <div className={classes["editsocial__content-buttons"]}>
             <Link to="/dashboard" className={classes["editsocial__content-btn"]}>
-              Back to Dashborad
+              {t("backDashboard")}
             </Link>
           </div>
 
           <p className={classes["editsocial__content-title"]}>
-            Your Social Links
+            {t("socialLinks")}
           </p>
 
           <form onSubmit={handleSubmit} className={classes["editsocial__content-form"]}>
@@ -131,7 +133,7 @@ const EditSocial = () => {
 
               <div className={classes["editsocial__content-save"]}>
                 <button className={classes["editsocial__content-saveBtn"]}>
-                  Save
+                  {t("save")}
                 </button>
               </div>
             </div>

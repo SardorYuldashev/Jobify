@@ -5,11 +5,14 @@ import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import classes from './editprofile.module.scss'
 import { loadUserInfo } from '../../store/slices/user';
+import { t } from 'i18next';
+import { useTranslation } from 'react-i18next';
 
 const EditProfile = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const {info} = useSelector(({user}) => user)
+  const { info } = useSelector(({ user }) => user)
 
   const [values, setValues] = useState({
     status: info.status,
@@ -40,7 +43,7 @@ const EditProfile = () => {
       console.log(data);
       dispatch(loadUserInfo(data))
       localStorage.setItem("userInfo", JSON.stringify(data))
-      toast("Ma'lumotlar o'zgartirildi", {type: "info"})
+      toast("Ma'lumotlar o'zgartirildi", { type: "info" })
       navigate("/dashboard")
 
     } catch (error) {
@@ -51,21 +54,21 @@ const EditProfile = () => {
           toast(`${err.param} ${err.msg}`, { type: "error" }))
       }
     }
-  }  
-  
+  }
+
   return (
     <div className={classes["editprofile"]}>
       <div className="container">
         <div className={classes["editprofile__content"]}>
 
-        <div className={classes["editprofile__content-buttonsBack"]}>
+          <div className={classes["editprofile__content-buttonsBack"]}>
             <Link to="/dashboard" className={classes["editprofile__content-btnBack"]}>
-              Back to Dashborad
+              {t("backDashboard")}
             </Link>
           </div>
 
           <p className={classes["editprofile__content-info"]}>
-            * = required fields
+            {t("requiredField")}
           </p>
 
           <form onSubmit={handleComplete} className={classes["editprofile__content-form"]}>
@@ -78,7 +81,7 @@ const EditProfile = () => {
                 <div>
                   <label className={classes["editprofile__content-label"]}
                     htmlFor="status">
-                    * Work Status
+                    {t("workStatus")}
                   </label>
 
                   <select className={classes["editprofile__content-input"]}
@@ -97,14 +100,14 @@ const EditProfile = () => {
                   </select>
 
                   <p className={classes["editprofile__content-text"]}>
-                    Select the best option that fits you
+                    {t("selectOption")}
                   </p>
                 </div>
 
                 <div>
                   <label className={classes["editprofile__content-label"]}
                     htmlFor="company">
-                    Company
+                    {t("company")}
                   </label>
 
                   <input className={classes["editprofile__content-input"]}
@@ -119,7 +122,7 @@ const EditProfile = () => {
                 <div>
                   <label className={classes["editprofile__content-label"]}
                     htmlFor="website">
-                    Website
+                    {t("website")}
                   </label>
 
                   <input className={classes["editprofile__content-input"]}
@@ -131,7 +134,7 @@ const EditProfile = () => {
                     onChange={handleInpChange} />
 
                   <p className={classes["editprofile__content-text"]}>
-                    You do not need to specify https protocol
+                    {t("specifyProtocol")}
                   </p>
                 </div>
 
@@ -143,7 +146,7 @@ const EditProfile = () => {
                 <div>
                   <label className={classes["editprofile__content-label"]}
                     htmlFor="skills">
-                    * Skills
+                    {t("skills")}
                   </label>
 
                   <input className={classes["editprofile__content-input"]}
@@ -155,14 +158,14 @@ const EditProfile = () => {
                     onChange={handleInpChange} />
 
                   <p className={classes["editprofile__content-text"]}>
-                    Separate each skill with comma(,)
+                    {t("separate")}
                   </p>
                 </div>
 
                 <div>
                   <label className={classes["editprofile__content-label"]}
                     htmlFor="location">
-                    Location
+                    {t("location")}
                   </label>
 
                   <input className={classes["editprofile__content-input"]}
@@ -177,7 +180,7 @@ const EditProfile = () => {
                 <div>
                   <label className={classes["editprofile__content-label"]}
                     htmlFor="github">
-                    Github user name
+                    {t("gitUser")}
                   </label>
 
                   <input className={classes["editprofile__content-input"]}
@@ -189,7 +192,7 @@ const EditProfile = () => {
                     onChange={handleInpChange} />
 
                   <p className={classes["editprofile__content-text"]}>
-                    You need to specify only username (without https://github.com/)
+                    {t("onlyUserName")}
                   </p>
                 </div>
               </div>
@@ -200,7 +203,7 @@ const EditProfile = () => {
             <div className={classes["editprofile__content-formBottom"]}>
               <label className={classes["editprofile__content-label"]}
                 htmlFor="bio">
-                Bio
+                {t("bio")}
               </label>
 
               <textarea className={classes["editprofile__content-input"]}
@@ -213,11 +216,11 @@ const EditProfile = () => {
               </textarea>
 
               <p className={classes["editprofile__content-text"]}>
-                You may say about your recent experience or what you are up to.
+                {t("sayAbout")}
               </p>
             </div>
 
-            <button type='submit' className={classes["editprofile__content-btn"]}>Create</button>
+            <button type='submit' className={classes["editprofile__content-btn"]}>{t("edit")}</button>
           </form>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
@@ -7,6 +8,7 @@ import { loadUserInfo } from '../../store/slices/user'
 import classes from './addexperiences.module.scss'
 
 const AddExperiences = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   let navigate = useNavigate()
   const [values, setValues] = useState({
@@ -36,11 +38,9 @@ const AddExperiences = () => {
         dispatch(loadUserInfo(data))
         localStorage.setItem("userInfo", JSON.stringify(data))
         setValues({ title: "", company: "", from: "", to: "", location: "", description: "" })
-        toast("Ish joyi qo'shildi", {type: "info"})
+        toast("Ish joyi qo'shildi", { type: "info" })
         navigate(-1)
       }
-
-
     } catch (error) {
       if (error.response) {
         if (error.response.data.message)
@@ -59,12 +59,12 @@ const AddExperiences = () => {
 
           <div className={classes["addexperiences__content-buttons"]}>
             <Link to="/dashboard" className={classes["addexperiences__content-btn"]}>
-              Back to Dashboard
+              {t("backDashboard")}
             </Link>
           </div>
 
           <p className={classes["addexperiences__content-title"]}>
-            Add Experience
+            {t("addExp")}
           </p>
 
 
@@ -79,7 +79,7 @@ const AddExperiences = () => {
                 <div className={classes["addexperiences__content-item"]}>
                   <label className={classes["addexperiences__content-label"]}
                     htmlFor="title">
-                    Title
+                    {t("title")}
                   </label>
                   <input className={classes["addexperiences__content-input"]}
                     type="text"
@@ -93,7 +93,7 @@ const AddExperiences = () => {
                 <div className={classes["addexperiences__content-item"]}>
                   <label className={classes["addexperiences__content-label"]}
                     htmlFor="from">
-                    Date
+                    {t("date")}
                   </label>
 
                   <div className={classes["addexperiences__content-inputs"]}>
@@ -107,11 +107,11 @@ const AddExperiences = () => {
                       onChange={handleInpChange} />
 
 
-                    <span>To</span>
+                    <span>{t("to")}</span>
 
                     <label className={classes["addexperiences__content-inputCheckLabel"]}
                       htmlFor="checkbox">
-                      Current
+                      {t("current")}
                     </label>
 
                     <input className={classes["addexperiences__content-inputCheck"]}
@@ -136,7 +136,7 @@ const AddExperiences = () => {
                 <div className={classes["addexperiences__content-item"]}>
                   <label className={classes["addexperiences__content-label"]}
                     htmlFor="company">
-                    Company
+                    {t("company")}
                   </label>
                   <input className={classes["addexperiences__content-input"]}
                     type="text"
@@ -150,7 +150,7 @@ const AddExperiences = () => {
                 <div className={classes["addexperiences__content-item"]}>
                   <label className={classes["addexperiences__content-label"]}
                     htmlFor="location">
-                    Location
+                    {t("location")}
                   </label>
                   <input className={classes["addexperiences__content-input"]}
                     type="text"
@@ -166,7 +166,9 @@ const AddExperiences = () => {
             </div>
 
             <div className={classes["addexperiences__content-description"]}>
-              <label htmlFor="textarea">Description</label>
+              <label htmlFor="textarea">
+                {t("description")}
+              </label>
               <textarea className={classes["addexperiences__content-textarea"]}
                 name="description"
                 id="description"
@@ -180,7 +182,7 @@ const AddExperiences = () => {
 
             <div className={classes["addexperiences__content-buttons"]}>
               <button type='submit' className={classes["addexperiences__content-add"]}>
-                Add
+                {t("add")}
               </button>
             </div>
 

@@ -4,10 +4,11 @@ import classes from './jobs.module.scss'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 
 const Jobs = () => {
   const { id } = useParams()
-
+  const { t } = useTranslation()
   const [refresh, setRefresh] = useState(false)
   const navigate = useNavigate()
   const goBack = () => navigate(-1)
@@ -19,7 +20,6 @@ const Jobs = () => {
     (async () => {
       try {
         let { data } = await axios.get(`/jobs/${id}`)
-
         if (data) {
           setJob([data])
           setApplicants(data.applicants)
@@ -70,29 +70,29 @@ const Jobs = () => {
 
           <div className={classes["jobs__content-buttonsX"]}>
             <button onClick={goBack} className={classes["jobs__content-btnX"]}>
-              Go Back
+              {t("goBack")}
             </button>
           </div>
 
-          {job.length === 0 ? <h2>Loading...</h2> : job?.map((item) =>
+          {job.length === 0 ? <h2>{t("loading")}</h2> : job?.map((item) =>
             <div key={item._id} className={classes["jobs__content-item"]}>
               <div className={classes["jobs__content-info"]}>
                 <h2 className={classes["jobs__content-theme"]}>{item.title}</h2>
                 <p className={classes["jobs__content-text"]}>{item.description}</p>
-                <p className={classes["jobs__content-text"]}>By: {item.name}</p>
-                <p className={classes["jobs__content-text"]}>{item.date.slice(0, 10)}</p>
+                <p className={classes["jobs__content-text"]}>{t("by")} {item.name}</p>
+                <p className={classes["jobs__content-text"]}>{t("date")} {item.date.slice(0, 10)}</p>
               </div>
 
               <div className={classes["jobs__content-buttons"]}>
 
                 <div className={classes["jobs__content-left"]}>
-                  <button onClick={() => { hanleLike(item._id) }} className={classes["jobs__content-btn"]}>Like <span>{item.likes.length}</span></button>
-                  <button onClick={() => { hanleDislike(item._id) }} className={classes["jobs__content-btn"]}>Dislike</button>
-                  <button className={classes["jobs__content-btn"]}>Views <span>{item.applicants.length}</span></button>
+                  <button onClick={() => { hanleLike(item._id) }} className={classes["jobs__content-btn"]}>{t("like")} <span>{item.likes.length}</span></button>
+                  <button onClick={() => { hanleDislike(item._id) }} className={classes["jobs__content-btn"]}>{t("unlike")}</button>
+                  <button className={classes["jobs__content-btn"]}>{t("applicants")} <span>{item.applicants.length}</span></button>
                 </div>
 
                 <div className={classes["jobs__content-right"]}>
-                  <button onClick={() => { hanleApply(item._id) }} className={classes["jobs__content-apply"]}>Apply</button>
+                  <button onClick={() => { hanleApply(item._id) }} className={classes["jobs__content-apply"]}>{t("apply")}</button>
                 </div>
               </div>
             </div>)
@@ -102,7 +102,7 @@ const Jobs = () => {
 
           {applicants.length === 0 ? <h2> </h2> : <div className={classes["jobs__content-applicants"]}>
             <p className={classes["jobs__content-title"]}>
-              Applicants
+              {t("applicants")}
             </p>
 
             <ul className={classes["jobs__content-users"]}>
@@ -125,7 +125,7 @@ const Jobs = () => {
 
                   <div className={classes["jobs__content-userButtons"]}>
                     <Link to={`/profile/${item._id}`} className={classes["jobs__content-userBtn"]}>
-                      View Profile
+                      {t("viewProfile")}
                     </Link>
                   </div>
                 </li>)}

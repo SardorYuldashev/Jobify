@@ -5,11 +5,13 @@ import { toast } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { loadUserCompleted, loadUserInfo } from '../../store/slices/user';
 import classes from './createprofile.module.scss'
+import { useTranslation } from 'react-i18next';
 
 
 // status, skills, website?, bio?, location?, company?, githubusername?
 
 const CreateProfile = () => {
+  const {t} = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -33,21 +35,19 @@ const CreateProfile = () => {
     if (values.status === "") {
       return toast("Statusni tanlang", { type: "error" })
     }
+
     if (!values.skills) {
       return toast("Skkills bo'limini to'diring", { type: "error" })
     }
 
     try {
       let { data } = await axios.post("/profile", values)
-
-
       dispatch(loadUserInfo(data))
       dispatch(loadUserCompleted(true))
       localStorage.setItem("isCompleted", true)
       localStorage.setItem("userInfo", JSON.stringify(data))
       toast("Profil muvaffaqiyatli to'ldirildi", {type: "info"})
-      navigate("/dashboard")
-      
+      navigate("/dashboard")      
     } catch (error) {
       if (error.response) {
         if (error.response.data.message)
@@ -64,7 +64,7 @@ const CreateProfile = () => {
       <div className="container">
         <div className={classes["createProfile__content"]}>
           <p className={classes["createProfile__content-info"]}>
-            * = required fields
+            {t("requiredField")}
           </p>
 
           <form onSubmit={handleComplete} className={classes["createProfile__content-form"]}>
@@ -77,7 +77,7 @@ const CreateProfile = () => {
                 <div>
                   <label className={classes["createProfile__content-label"]}
                     htmlFor="status">
-                    * Work Status
+                    {t("workStatus")}
                   </label>
 
                   <select className={classes["createProfile__content-input"]}
@@ -96,14 +96,14 @@ const CreateProfile = () => {
                   </select>
 
                   <p className={classes["createProfile__content-text"]}>
-                    Select the best option that fits you
+                    {t("selectOption")}
                   </p>
                 </div>
 
                 <div>
                   <label className={classes["createProfile__content-label"]}
                     htmlFor="company">
-                    Company
+                    {t("company")}
                   </label>
 
                   <input className={classes["createProfile__content-input"]}
@@ -118,7 +118,7 @@ const CreateProfile = () => {
                 <div>
                   <label className={classes["createProfile__content-label"]}
                     htmlFor="website">
-                    Website
+                    {t("website")}
                   </label>
 
                   <input className={classes["createProfile__content-input"]}
@@ -130,7 +130,7 @@ const CreateProfile = () => {
                     onChange={handleInpChange} />
 
                   <p className={classes["createProfile__content-text"]}>
-                    You do not need to specify https protocol
+                    {t("specifyProtocol")}
                   </p>
                 </div>
 
@@ -142,7 +142,7 @@ const CreateProfile = () => {
                 <div>
                   <label className={classes["createProfile__content-label"]}
                     htmlFor="skills">
-                    * Skills
+                    {t("skills")}
                   </label>
 
                   <input className={classes["createProfile__content-input"]}
@@ -161,7 +161,7 @@ const CreateProfile = () => {
                 <div>
                   <label className={classes["createProfile__content-label"]}
                     htmlFor="location">
-                    Location
+                    {t("location")}
                   </label>
 
                   <input className={classes["createProfile__content-input"]}
@@ -176,7 +176,7 @@ const CreateProfile = () => {
                 <div>
                   <label className={classes["createProfile__content-label"]}
                     htmlFor="github">
-                    Github user name
+                    {t("gitUser")}
                   </label>
 
                   <input className={classes["createProfile__content-input"]}
@@ -188,7 +188,7 @@ const CreateProfile = () => {
                     onChange={handleInpChange} />
 
                   <p className={classes["createProfile__content-text"]}>
-                    You need to specify only username (without https://github.com/)
+                    {t("onlyUserName")}
                   </p>
                 </div>
               </div>
@@ -199,7 +199,7 @@ const CreateProfile = () => {
             <div className={classes["createProfile__content-formBottom"]}>
               <label className={classes["createProfile__content-label"]}
                 htmlFor="bio">
-                Bio
+                {t("bio")}
               </label>
 
               <textarea className={classes["createProfile__content-input"]}
@@ -212,11 +212,11 @@ const CreateProfile = () => {
               </textarea>
 
               <p className={classes["createProfile__content-text"]}>
-                You may say about your recent experience or what you are up to.
+                {t("sayAbout")}
               </p>
             </div>
 
-            <button type='submit' className={classes["createProfile__content-btn"]}>Create</button>
+            <button type='submit' className={classes["createProfile__content-btn"]}>{t("create")}</button>
           </form>
         </div>
       </div>

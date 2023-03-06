@@ -2,8 +2,10 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import classes from './git.module.scss'
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const Git = () => {
+  const {t} = useTranslation()
 
   // Keyin yana ko'rib chiqish kerak==================================
   const { info } = useSelector(({ user }) => user)
@@ -42,19 +44,19 @@ const Git = () => {
               </p>
 
               <p className={classes["git__list-text"]}>
-                <span className={classes["git__list-infoSpan"]}>Created at:</span> {item.created_at.slice(0, 10)}
+                <span className={classes["git__list-infoSpan"]}>{t("createdAt")}:</span> {item.created_at.slice(0, 10)}
               </p>
 
               <p className={classes["git__list-text"]}>
-                <span className={classes["git__list-infoSpan"]}>Main language:</span> {item.language}
+                <span className={classes["git__list-infoSpan"]}>{t("mainLanguage")}:</span> {item.language}
               </p>
 
               <p className={classes["git__list-text"]}>
-                <span className={classes["git__list-infoSpan"]}>Main branch:</span> {item.default_branch}
+                <span className={classes["git__list-infoSpan"]}>{t("mainBranch")}:</span> {item.default_branch}
               </p>
 
               <p className={classes["git__list-text"]}>
-                <span className={classes["git__list-infoSpan"]}>Visibility:</span> {item.visibility}
+                <span className={classes["git__list-infoSpan"]}>{t("visibility")}:</span> {item.visibility}
               </p>
             </a>
 

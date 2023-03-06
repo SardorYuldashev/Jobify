@@ -70,7 +70,8 @@
     }
 
     &-btn {
-      padding: 8px 60px;
+      min-width: 200px;
+      padding: 8px 40px;
       border: none;
       transition: .3s;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -99,7 +100,7 @@
 
     &-apply {
       min-width: 200px;
-      padding: 8px 60px;
+      padding: 8px 40px;
       border: none;
       transition: .3s;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -187,6 +188,7 @@
 
     &-userBtn {
       width: 90%;
+      text-align: center;
       padding: 8px 16px;
       border-radius: 5px;
       color: white;

@@ -5,11 +5,13 @@ import { toast } from 'react-toastify'
 import axios from 'axios'
 import { localTokenKey } from '../../Components/Constants'
 import { useDispatch } from 'react-redux'
-import { loadUserEmail, loadUserToken } from '../../store/slices/user'
+import { loadUserToken } from '../../store/slices/user'
+import { useTranslation } from 'react-i18next'
 
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { t } = useTranslation()
 
   const [values, setValues] = useState({
     email: "",
@@ -31,7 +33,6 @@ const Login = () => {
       return toast("Parol kamida 6 ta harf bo'lishi kerak", { type: "error" })
     }
 
-
     try {
       let { data } = await axios.post("/auth", values)
       let { token } = data
@@ -39,7 +40,7 @@ const Login = () => {
       if (token) {
         localStorage.setItem(localTokenKey, token)
         axios.defaults.headers.common["access-token"] = token
-        dispatch(loadUserToken(token))  
+        dispatch(loadUserToken(token))
       }
       toast("Siz profilingizga kirdingiz", { type: "info" })
       navigate("/dashboard")
@@ -60,14 +61,14 @@ const Login = () => {
         <div className={classes["login__content"]}>
           <div className={classes["login__content-wrapper"]}>
             <h2 className={classes["login__content-title"]}>
-              Login
+              {t("login")}
             </h2>
 
             <form onSubmit={handleRegister} className={classes["login__content-form"]}>
               <div className={classes["login__content-formBox"]}>
                 <label className={classes["login__content-label"]}
                   htmlFor="email">
-                  Your email
+                  {t("yourEmail")}
                 </label>
                 <input className={classes["login__content-input"]}
                   type="email"
@@ -81,7 +82,7 @@ const Login = () => {
               <div className={classes["login__content-formBox"]}>
                 <label className={classes["login__content-label"]}
                   htmlFor="password">
-                  Your password
+                  {t("yourPassword")}
                 </label>
                 <input className={classes["login__content-input"]}
                   type="password"
@@ -92,11 +93,15 @@ const Login = () => {
                 />
               </div>
 
-              <button className={classes["login__content-btn"]}>Login</button>
+              <button className={classes["login__content-btn"]}>{t("login")}</button>
             </form>
 
-            <span className={classes["login__content-text"]}>No account yet?</span>
-            <Link to="/register" className={classes["login__content-link"]}>Register</Link>
+            <span className={classes["login__content-text"]}>
+              {t("notAccount")}
+            </span>
+            <Link to="/register" className={classes["login__content-link"]}>
+              {t("register")}
+            </Link>
           </div>
         </div>
       </div>

@@ -9,14 +9,14 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { loadUserCompleted, loadUserEmail, loadUserInfo, loadUserName, loadUserToken } from '../../store/slices/user'
+import { useTranslation } from 'react-i18next';
 
 const AfterProfile = () => {
+  const {t} = useTranslation()
   let { email } = useSelector(({ user }) => user)
   let { info } = useSelector(({ user }) => user)
   let dispatch = useDispatch()
   let navigate = useNavigate()
-
-
 
   const [userInfo, setUserInfo] = useState([])
   const [loading, setLoading] = useState(false)
@@ -36,7 +36,6 @@ const AfterProfile = () => {
       unmounted = true
     }
   }, [])
-
 
   // Profilni o'chirish
   function handleDeleteBtn() {
@@ -68,13 +67,10 @@ const AfterProfile = () => {
     deleteProfile()
   }
 
-
-
-
   let experiences = info.experience.length === 0
   let educations = info.education.length === 0
 
-  return loading && userInfo.length === 0 ? <h2>Loading</h2> : (
+  return loading && userInfo.length === 0 ? <h2>{t("wait")}</h2> : (
     <div className={classes["afterProfile"]}>
       <div className="container">
         <div className={classes["afterProfile__content"]}>
@@ -82,21 +78,21 @@ const AfterProfile = () => {
           {/* Приветствие */}
           <div className={classes["afterProfile__greeting"]}>
             <p className={classes["afterProfile__content-title"]}>
-              Hello, {userInfo?.user?.name}
+              {t("hello")}, {userInfo?.user?.name}
             </p>
             <p className={classes["afterProfile__greeting-text"]}>
-              What are you planning to do today?
+              {t("planningToday")}
             </p>
             <div className={classes["afterProfile__greeting-buttons"]}>
-              <Link className={classes["afterProfile__greeting-btn"]} to="/myjobs">Post a job</Link>
-              <Link className={classes["afterProfile__greeting-btn"]} to="/explore">Explore jobs</Link>
+              <Link className={classes["afterProfile__greeting-btn"]} to="/myjobs">{t("postAJob")}</Link>
+              <Link className={classes["afterProfile__greeting-btn"]} to="/explore">{t("exploreJobs")}</Link>
             </div>
           </div>
 
           {/* User haqida ma'lumotlar */}
           <div className={classes["afterProfile__info"]}>
             <p className={classes["afterProfile__content-title"]}>
-              Your Info
+              {t("yourInfo")}
             </p>
 
             <div className={classes["afterProfile__info-item"]}>
@@ -117,25 +113,25 @@ const AfterProfile = () => {
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      <span>Status:</span> {userInfo?.status}
+                      <span>{t("status")}:</span> {userInfo?.status}
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      <span>Location:</span> {userInfo?.location}
+                      <span>{t("location")}:</span> {userInfo?.location}
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      <span>Bio:</span> {userInfo?.bio}
+                      <span>{t("bio")}:</span> {userInfo?.bio}
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      <span>Joined at:</span> {userInfo.date ? userInfo?.date.slice(0, 10) : userInfo.date}
+                      <span>{t("date")}</span> {userInfo.date ? userInfo?.date.slice(0, 10) : userInfo.date}
                     </p>
                   </li>
                 </ul>
@@ -144,19 +140,19 @@ const AfterProfile = () => {
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      <span>Company:</span> {userInfo?.company}
+                      <span>{t("company")}:</span> {userInfo?.company}
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <p className={classes["afterProfile__info-text"]}>
-                      <span>Website:</span> <a target={'_blank'} href={userInfo?.website}>{userInfo?.website}</a>
+                      <span>{t("website")}:</span> <a target={'_blank'} href={userInfo?.website}>{userInfo?.website}</a>
                     </p>
                   </li>
 
                   <li className={classes["afterProfile__info-li"]}>
                     <div className={classes["afterProfile__info-text"]}>
-                      <span>Skills:</span> {userInfo.skills ? userInfo.skills.map((item) => (
+                      <span>{t("skillsList")}:</span> {userInfo.skills ? userInfo.skills.map((item) => (
                         <div key={crypto.randomUUID()} className={classes["afterProfile__info-textBox"]}><i className="fa-solid fa-check"></i>{item} </div>
                       )) : userInfo?.skills}
                     </div>
@@ -206,12 +202,11 @@ const AfterProfile = () => {
                   </li>
 
                 </ul>
-
               </div>
 
               <div className={classes["afterProfile__info-bottom"]}>
-                <Link className={classes["afterProfile__info-btn"]} to="/editprofile">Edit profile</Link>
-                <Link className={classes["afterProfile__info-btn"]} to="/editprofile/social">Edit social</Link>
+                <Link className={classes["afterProfile__info-btn"]} to="/editprofile">{t("editProfile")}</Link>
+                <Link className={classes["afterProfile__info-btn"]} to="/editprofile/social">{t("editSocial")}</Link>
               </div>
 
             </div>
@@ -220,7 +215,7 @@ const AfterProfile = () => {
           {/* Ish joyini qo'shish */}
           <div className={classes["afterProfile__experiences"]}>
             <p className={classes["afterProfile__content-title"]}>
-              Experiences
+              {t("experience")}
             </p>
 
             <div className={classes["afterProfile__experiences-item"]}>
@@ -228,7 +223,7 @@ const AfterProfile = () => {
                 (
                   <div className={classes["afterProfile__experiences-not"]}>
                     <p className={classes["afterProfile__experiences-not-title"]}>
-                      No Experience Added.
+                      {t("noExperinces")}
                     </p>
                   </div>
                 ) :
@@ -237,7 +232,7 @@ const AfterProfile = () => {
                 )}
 
               <Link to="/addexperience" className={classes["afterProfile__experiences-btn"]}>
-                Add
+                {t("add")}
               </Link>
             </div>
           </div>
@@ -245,7 +240,7 @@ const AfterProfile = () => {
           {/* O'qish joyini qo'shish */}
           <div className={classes["afterProfile__educations"]}>
             <p className={classes["afterProfile__content-title"]}>
-              Educations
+              {t("educations")}
             </p>
 
             <div className={classes["afterProfile__educations-item"]}>
@@ -253,7 +248,7 @@ const AfterProfile = () => {
                 (
                   <div className={classes["afterProfile__educations-not"]}>
                     <p className={classes["afterProfile__educations-not-title"]}>
-                      No Education Added.
+                      {t("noEducation")}
                     </p>
                   </div>
                 ) :
@@ -262,7 +257,7 @@ const AfterProfile = () => {
                 )}
 
               <Link to="/addeducation" className={classes["afterProfile__educations-btn"]}>
-                Add
+                {t("add")}
               </Link>
             </div>
 
@@ -271,7 +266,7 @@ const AfterProfile = () => {
           {/* Git Repos */}
           <div className={classes["afterProfile__git"]}>
             <p className={classes["afterProfile__content-title"]}>
-              Recent Git Repos
+              {t("recentGitRepos")}
             </p>
 
             <Git />
@@ -280,9 +275,9 @@ const AfterProfile = () => {
 
           {/* Delete */}
           <div className={classes["afterProfile__delete"]}>
-            <p className={classes["afterProfile__delete-title"]}>!!!DANGER ZONE!!!</p>
-            <p className={classes["afterProfile__delete-text"]}>This area is so dangerous. You may delete all your data by accident in here! PLEASE BE CAREFUL!!!</p>
-            <button onClick={handleDeleteBtn} className={classes["afterProfile__delete-btn"]}>Delete account</button>
+            <p className={classes["afterProfile__delete-title"]}>!!!{t("dangerZone")}!!!</p>
+            <p className={classes["afterProfile__delete-text"]}>{t("dangerText")}</p>
+            <button onClick={handleDeleteBtn} className={classes["afterProfile__delete-btn"]}>{t("deleteAccount")}</button>
           </div>
 
         </div>

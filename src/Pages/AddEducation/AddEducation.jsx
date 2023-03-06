@@ -1,13 +1,14 @@
 import axios from 'axios'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { loadUserInfo } from '../../store/slices/user'
 import classes from './addeducation.module.scss'
 
-
 const AddEducation = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   let navigate = useNavigate()
   const [values, setValues] = useState({
@@ -30,17 +31,13 @@ const AddEducation = () => {
       return toast("School, Degree, Date va Field of Study bo'limlari to'ldirilishi shart", { type: "error" })
     }
 
-
     try {
       let { data } = await axios.put("/profile/education", values)
       if (data) {
-
-        console.log(data);
-
         dispatch(loadUserInfo(data))
         localStorage.setItem("userInfo", JSON.stringify(data))
         setValues({ title: "", company: "", from: "", to: "", location: "", description: "" })
-        toast("O'quv yurti qo'shildi", {type: "info"})
+        toast("O'quv yurti qo'shildi", { type: "info" })
         navigate(-1)
       }
     } catch (error) {
@@ -53,7 +50,6 @@ const AddEducation = () => {
     }
   }
 
-
   return (
     <div className={classes["addeducation"]}>
       <div className="container">
@@ -61,12 +57,12 @@ const AddEducation = () => {
 
           <div className={classes["addeducation__content-buttons"]}>
             <Link to="/dashboard" className={classes["addeducation__content-btn"]}>
-              Back to Dashboard
+              {t("backDashboard")}
             </Link>
           </div>
 
           <p className={classes["addeducation__content-title"]}>
-            Add Education
+            {t("addEdu")}
           </p>
 
 
@@ -81,7 +77,7 @@ const AddEducation = () => {
                 <div className={classes["addeducation__content-item"]}>
                   <label className={classes["addeducation__content-label"]}
                     htmlFor="school">
-                    School
+                    {t("school")}
                   </label>
                   <input className={classes["addeducation__content-input"]}
                     type="text"
@@ -95,7 +91,7 @@ const AddEducation = () => {
                 <div className={classes["addeducation__content-item"]}>
                   <label className={classes["addeducation__content-label"]}
                     htmlFor="from">
-                    Date
+                    {t("date")}
                   </label>
 
                   <div className={classes["addeducation__content-inputs"]}>
@@ -137,7 +133,7 @@ const AddEducation = () => {
                 <div className={classes["addeducation__content-item"]}>
                   <label className={classes["addeducation__content-label"]}
                     htmlFor="degree">
-                    Degree
+                    {t("degree")}
                   </label>
                   <input className={classes["addeducation__content-input"]}
                     type="text"
@@ -151,7 +147,7 @@ const AddEducation = () => {
                 <div className={classes["addeducation__content-item"]}>
                   <label className={classes["addeducation__content-label"]}
                     htmlFor="fieldofstudy">
-                    Field of study
+                    {t("fieldStudy")}
                   </label>
                   <input className={classes["addeducation__content-input"]}
                     type="text"
@@ -167,7 +163,9 @@ const AddEducation = () => {
             </div>
 
             <div className={classes["addeducation__content-description"]}>
-              <label htmlFor="textarea">Description</label>
+              <label htmlFor="textarea">
+                {t("description")}
+                </label>
               <textarea className={classes["addeducation__content-textarea"]}
                 name="description"
                 id="description"
@@ -181,7 +179,7 @@ const AddEducation = () => {
 
             <div className={classes["addeducation__content-buttons"]}>
               <button type='submit' className={classes["addeducation__content-add"]}>
-                Add
+                {t("add")}
               </button>
             </div>
 

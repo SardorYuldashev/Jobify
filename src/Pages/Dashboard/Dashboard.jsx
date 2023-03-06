@@ -6,8 +6,10 @@ import classes from './dashboard.module.scss'
 import axios from 'axios'
 import { loadUserCompleted, loadUserEmail, loadUserID, loadUserInfo, loadUserName } from '../../store/slices/user'
 import { toast } from 'react-toastify'
+import { useTranslation } from 'react-i18next'
 
 const Dashboard = () => {
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const [udachno, setUdachno] = useState(false)
   const [loading, setloading] = useState(false)
@@ -37,7 +39,7 @@ const Dashboard = () => {
           setUdachno(true)
           setloading(false)
         }
-        
+
       } catch (error) {
         dispatch(loadUserCompleted(false))
         localStorage.setItem("isCompleted", false)
@@ -56,7 +58,7 @@ const Dashboard = () => {
   return (
     <div className={classes["dashboard"]}>
       <div className="container">
-        {loading ? <h2>Loading</h2> : token && udachno && isCompleted ? <AfterProfile /> : <BeforeProfile />}
+        {loading ? <h2>{t("loading")}</h2> : token && udachno && isCompleted ? <AfterProfile /> : <BeforeProfile />}
       </div>
     </div>
   )

@@ -1,11 +1,13 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { loadUserInfo } from '../../store/slices/user'
 import classes from './educations.module.scss'
 
 const Educations = () => {
+  const {t} = useTranslation()
   const dispatch = useDispatch()
   const [userInfo, setUserInfo] = useState([])
   const [render, setRender] = useState(true)
@@ -53,29 +55,29 @@ const Educations = () => {
 
             <h2 className={classes["educations__list-title"]}>
               <span className={classes["educations__list-status"]}>{item.degree}</span>
-              <span> at </span>
+              <span> {t("at")} </span>
               <span className={classes["educations__list-company"]}>{item.school}</span>
             </h2>
 
             <p className={classes["educations__list-text"]}>
-              <span>From:</span> {item.from.slice(0, 10)}
+              <span>{t("from")}:</span> {item.from.slice(0, 10)}
             </p>
 
             <p className={classes["educations__list-text"]}>
-              <span>Until:</span> { (!item.to) ?  "Now" : item.to.slice(0,10)}
+              <span>{t("until")}:</span> { (!item.to) ?  "Now" : item.to.slice(0,10)}
             </p>
 
             <p className={classes["educations__list-text"]}>
-              <span>Field of study:</span> {item.fieldofstudy}
+              <span>{t("fieldStudy")}:</span> {item.fieldofstudy}
             </p>
 
             <p className={classes["educations__list-text"]}>
-              <span>Description:</span> {item.description}
+              <span>{t("description")}:</span> {item.description}
             </p>
           </div>
 
           <button onClick={() => {deleteExperince(item._id)}} className={classes["educations__list-btn"]}>            
-            Delete
+            {t("delete")}
           </button>
         </li>)}       
 
